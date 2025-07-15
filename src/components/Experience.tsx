@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import GlassCard from './GlassCard';
-import techsnap from '../assets/techsnap.jpeg';
+import techsnap from '../assets/Techsnap.png';
 import gdg from '../assets/gdg.png';
 import ntl from '../assets/ntl.jpeg';
 import srm from '../assets/srm.png';
