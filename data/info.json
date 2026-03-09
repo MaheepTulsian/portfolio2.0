@@ -1,0 +1,355 @@
+{
+  "personal": {
+    "name": "Maheep Tulsian",
+    "title": "Full Stack Developer",
+    "location": {
+      "institution": "SRM University - AP",
+      "city": "Varanasi",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "pincode": "221010"
+    },
+    "contact": {
+      "phone": "+91 9307775556",
+      "email": "maheep2403@gmail.com",
+      "website": "maheeptulsian.in",
+      "github": "maheeptulsian",
+      "linkedin": "maheeptulsian",
+      "twitter": "Maheep_tulsyan",
+      "medium": "maheep2403",
+      "pinterest": "maheep2403"
+    }
+  },
+  "education": {
+    "degree": "B.Tech in Computer Science and Engineering",
+    "specialization": "AI & ML",
+    "university": "SRM University, AP",
+    "location": "Vijayawada",
+    "duration": {
+      "start": "2022-09",
+      "end": "2026-07"
+    },
+    "cgpa": 8.9,
+    "sgpa_6th_sem": 9.1,
+    "achievements": [
+      "Awarded 25% Merit Scholarship for academic excellence"
+    ]
+  },
+  "work_experience": [
+    {
+      "title": "AI Intern",
+      "company": "Techsnap Educations LLP",
+      "duration": {
+        "start": "2025-06",
+        "end": "2025-08"
+      },
+      "technologies": ["Python", "LangChain", "LangGraph", "Hugging Face", "Ollama"],
+      "responsibilities": [
+        "Refined Retrieval-Augmented Generation (RAG) pipelines by optimizing pre-prompts, improving LLM output relevance by 20%",
+        "Fine-tuned local LLMs (Ollama, Hugging Face) using LangChain/LangGraph, enhancing adaptability and reducing inference latency",
+        "Built a GPT-style internal testing UI, streamlining evaluation workflows for in-house LLMs"
+      ],
+      "impact": {
+        "llm_relevance_improvement": "20%",
+        "inference_optimization": "Reduced latency"
+      }
+    },
+    {
+      "title": "Full Stack Intern",
+      "company": "SRM University, AP",
+      "duration": {
+        "start": "2024-06",
+        "end": "2024-08"
+      },
+      "technologies": ["Next.js", "Node.js", "MongoDB", "JWT", "Shadcn", "nivo-charts"],
+      "responsibilities": [
+        "Architected a centralized student dashboard delivering a scalable codebase for long-term maintainability and seamless feature expansion",
+        "Implemented advanced search, sorting, and filtering features, cutting administrator lookup time from 3–5 minutes in Excel to 10–30 seconds with significantly fewer human errors",
+        "Enabled CSV/XLSX export functionality, automating report generation and reducing manual effort from 30 min. to under 2 min"
+      ],
+      "impact": {
+        "lookup_time_reduction": "from 3-5 minutes to 10-30 seconds",
+        "report_generation_time": "from 30 minutes to under 2 minutes",
+        "error_reduction": "significantly fewer human errors"
+      }
+    }
+  ],
+  "projects": [
+    {
+      "name": "Up.ly",
+      "description": "AI-driven career preparation platform that generates tailored resumes and cover letters based on job descriptions and user data",
+      "technologies": ["React", "Tailwind CSS", "Node.js", "Express.js", "MongoDB", "LangChain", "Python", "Chrome Extension"],
+      "github": "GITHUB LINK",
+      "features": [
+        "Generates tailored resumes and cover letters based on job descriptions and user data",
+        "Chrome extension to auto-fill job application forms, reducing manual effort and improving efficiency",
+        "AI agents using LangChain to generate personalized mock interview questions and preparation sheets aligned with job descriptions",
+        "Scalable system leveraging modern web stack for seamless user experience across resume generation, interview preparation, and application workflows"
+      ],
+      "category": "AI/Career Tech"
+    },
+    {
+      "name": "VibeUI",
+      "description": "Customizable component library on top of shadcn/ui, designed to adapt to unique user-specific UI/UX requirements",
+      "technologies": ["React", "JavaScript", "FastAPI", "Python", "Tailwind CSS", "shadcn/ui", "LangChain"],
+      "github": "GITHUB LINK",
+      "features": [
+        "AI-powered customization pipeline leveraging LangChain agents to interpret user requirements for design themes",
+        "Dynamically generate new UI components with personalized color palettes, styling, and themes",
+        "Developer-centric design system that enables instant generation of production-ready UI components",
+        "Published npm package with peak of 45+ weekly downloads"
+      ],
+      "impact": {
+        "npm_downloads": "45+ weekly downloads peak"
+      },
+      "category": "Developer Tools/UI Library"
+    },
+    {
+      "name": "Inventory & Supply Chain Dashboard / Ashwini",
+      "description": "Real-time inventory and supply chain dashboard to track stock levels, usage patterns, and logistics status",
+      "technologies": ["React", "FastAPI", "shadcn/ui", "Prisma", "LangChain", "NivoCharts", "OlaMaps"],
+      "github": "GITHUB LINK",
+      "features": [
+        "Real-time tracking of stock levels, usage patterns, and logistics status",
+        "Interactive visual analytics (charts, KPIs, and trend graphs) for shortage detection and demand forecasting",
+        "Integrated Ola Maps to visualize peer distribution across India",
+        "Secure CRUD workflows with role-based access control for administrators and staff"
+      ],
+      "category": "Enterprise/Supply Chain"
+    },
+    {
+      "name": "cUrlBaby",
+      "description": "Lightweight Java-based CLI utility for API testing replicating core Postman features",
+      "technologies": ["Java", "CLI", "Shell", "OOP", "HTTP"],
+      "github": "GITHUB LINK",
+      "features": [
+        "Full HTTP operation support (GET, POST, PUT, DELETE) with timeout control and error handling",
+        "Custom JSON parser for clear console output",
+        "Intuitive workflow for streamlined request management and response visualization directly in terminal",
+        "Built with modular object-oriented patterns"
+      ],
+      "category": "Developer Tools/CLI"
+    },
+    {
+      "name": "Mirai",
+      "description": "Feature-rich Flutter mobile application for CS/IT students and professionals, centralizing job listings, internships, learning resources, career roadmaps, and GSoC organizations",
+      "technologies": ["Flutter", "Dart", "Firebase"],
+      "github": "GITHUB LINK",
+      "features": [
+        "Firebase-backed architecture using Firestore, Auth, Analytics, and FCM with Google Sign-In",
+        "Real-time data syncing, offline persistence, and personalized content delivery",
+        "Modern, scalable app architecture with Provider-based state management",
+        "Navigation 2.0 deep linking, push notifications, image caching, and performance optimizations"
+      ],
+      "category": "Mobile App/Career Tech"
+    },
+    {
+      "name": "EveryDukan",
+      "description": "Cross-platform shopping aggregation app that consolidates deals across categories with real-time discovery features",
+      "technologies": ["Flutter", "Next.js", "AWS Lambda", "MongoDB", "Serverless"],
+      "link": "PROJECT LINK",
+      "features": [
+        "Real-time deal discovery across multiple categories",
+        "Serverless backend with AWS Lambda and MongoDB for scalable operations",
+        "Efficient deal indexing"
+      ],
+      "impact": {
+        "revenue": "₹28,000 in affiliate revenue",
+        "validation": "Demonstrated product-market fit and real-world monetization success"
+      },
+      "category": "E-commerce/Mobile App"
+    },
+    {
+      "name": "Burp / BURP",
+      "description": "Platform simplifying and diversifying crypto investing through agent-driven clustering",
+      "technologies": ["React", "Tailwind CSS", "Solidity", "web3.js", "Ethereum", "PYUSD", "LangChain", "LangGraph"],
+      "github": "GITHUB LINK",
+      "features": [
+        "Conversational AI agents using LangChain & LangGraph that analyze users' investment preferences through natural dialogue",
+        "Automatically generate personalized token clusters based on user preferences",
+        "Smart contract architecture enabling single-transaction cluster purchases",
+        "Users pay once in PYUSD while contract handles backend settlement across multiple DEXs",
+        "Automatically swaps and distributes tokens to user wallets, eliminating multiple transaction signatures",
+        "Makes crypto investing accessible without crypto jargon or complicated steps"
+      ],
+      "awards": [
+        "Winner of ETHGlobal New Delhi 2025 (PayPal Track)"
+      ],
+      "category": "Blockchain/DeFi"
+    },
+    {
+      "name": "BorrowBridge",
+      "description": "Decentralized token-based crowdfunding platform on Ethereum using smart contracts",
+      "technologies": ["React", "Solidity", "web3.js", "Thirdweb", "Ethereum", "Tailwind CSS"],
+      "github": "GITHUB LINK",
+      "features": [
+        "Transparent fundraising through smart contracts",
+        "Integrated Thirdweb for smart contract deployment",
+        "Simple React interface for campaigns and investments"
+      ],
+      "category": "Blockchain/Crowdfunding"
+    },
+    {
+      "name": "Redeem",
+      "description": "High-performance coupon management REST API in Go with MongoDB",
+      "technologies": ["Go", "MongoDB", "Docker", "OpenAPI 3.0", "LRU Cache"],
+      "github": "GITHUB LINK",
+      "features": [
+        "LRU caching with TTL to achieve sub-50ms response times",
+        "Support for 1000+ requests/second",
+        "Smart validation logic and context-aware cart analysis",
+        "Comprehensive coupon types (time-based, category-specific, stackable)",
+        "Atomic operations for concurrency safety",
+        "Mutex-based thread safety and automated cache cleanup",
+        "Complete OpenAPI 3.0 documentation with Swagger UI integration"
+      ],
+      "performance": {
+        "response_time": "sub-50ms",
+        "throughput": "1000+ requests/second"
+      },
+      "category": "Backend/E-commerce"
+    }
+  ],
+  "skills": {
+    "programming_languages": [
+      "JavaScript",
+      "TypeScript",
+      "Python",
+      "C",
+      "C++",
+      "Java",
+      "Go",
+      "Ruby",
+      "Dart"
+    ],
+    "frontend": [
+      "React",
+      "Next.js",
+      "Flutter",
+      "Tailwind CSS",
+      "Material UI",
+      "shadcn/ui",
+      "Zustand",
+      "Redux"
+    ],
+    "backend": [
+      "Node.js",
+      "Express.js",
+      "FastAPI",
+      "Firebase",
+      "REST APIs"
+    ],
+    "databases": [
+      "PostgreSQL",
+      "MongoDB",
+      "MySQL",
+      "Redis",
+      "Firestore"
+    ],
+    "devops_cloud": [
+      "Git",
+      "GitHub Actions",
+      "AWS",
+      "AWS EC2",
+      "AWS Lambda",
+      "AWS S3",
+      "Azure",
+      "Docker",
+      "NGINX",
+      "Cloudflare"
+    ],
+    "ai_ml": [
+      "LangChain",
+      "LangGraph",
+      "LLM APIs (OpenAI, Groq, Gemini)",
+      "RAG (Retrieval-Augmented Generation)",
+      "Hugging Face",
+      "Ollama"
+    ],
+    "blockchain": [
+      "Solidity",
+      "Web3.js",
+      "Ethers.js",
+      "Thirdweb"
+    ],
+    "tools": [
+      "Docker",
+      "Postman",
+      "JWT",
+      "Prisma",
+      "Firebase Auth",
+      "Firebase Analytics",
+      "FCM"
+    ]
+  },
+  "volunteering_leadership": [
+    {
+      "role": "Technical Coordinator",
+      "organization": "Google Developer Groups (GDG) SRM AP",
+      "responsibilities": [
+        "Leading workshops on LLMs, API integration, and real-time AI projects",
+        "Mentoring peers",
+        "Organizing community initiatives"
+      ]
+    },
+    {
+      "role": "Member",
+      "organization": "Norman Lab",
+      "focus": "Research and development in Full Stack and AI/ML with peer-reviewed outputs"
+    },
+    {
+      "role": "Member",
+      "organization": "Next Tech Lab (QS-ranked)",
+      "focus": "Research and development in Full Stack and AI/ML with peer-reviewed outputs"
+    }
+  ],
+  "achievements": [
+    {
+      "title": "Winner - ETHGlobal New Delhi 2025 (PayPal Track)",
+      "project": "BURP",
+      "description": "Platform simplifying and diversifying crypto investing through agent-driven clustering"
+    },
+    {
+      "title": "Winner - Unfold'24 (Coinbase Track)",
+      "project": "SMS Protocol",
+      "description": "Enabling MPC-powered crypto transactions via SMS"
+    },
+    {
+      "title": "Participant",
+      "events": [
+        "DeFy'24",
+        "SIH (Smart India Hackathon)",
+        "CodeAgoda",
+        "Tata Imagithon",
+        "Bajaj HackRx"
+      ]
+    }
+  ],
+  "interests": [
+    "Full Stack Development",
+    "AI/ML",
+    "LLMs and RAG Systems",
+    "Blockchain and Web3",
+    "Developer Tools",
+    "UI/UX Design Systems",
+    "Cloud Architecture",
+    "Open Source"
+  ],
+  "project_categories": {
+    "ai_ml": ["Up.ly", "VibeUI", "Burp"],
+    "full_stack": ["Up.ly", "Mirai", "EveryDukan", "Ashwini"],
+    "blockchain": ["Burp", "BorrowBridge"],
+    "developer_tools": ["cUrlBaby", "VibeUI"],
+    "mobile": ["Mirai", "EveryDukan"],
+    "backend": ["Redeem"],
+    "enterprise": ["Ashwini"]
+  },
+  "technical_highlights": [
+    "Winner of 2 major hackathons (ETHGlobal, Unfold'24)",
+    "Generated ₹28,000 in affiliate revenue with EveryDukan",
+    "Published npm package with 45+ weekly downloads",
+    "Improved LLM output relevance by 20% at Techsnap",
+    "Reduced admin lookup time from 3-5 minutes to 10-30 seconds",
+    "Built systems handling 1000+ requests/second with sub-50ms response times"
+  ]
+}
