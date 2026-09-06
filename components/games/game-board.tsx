@@ -32,6 +32,8 @@ export function GameBoard({ game, onBack }: GameBoardProps) {
     const highScoreKey = `highscore_${game}`;
     const stored = localStorage.getItem(highScoreKey);
     if (stored) {
+      // localStorage is client-only, so the high score is read after mount.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setHighScore(parseInt(stored));
     }
   }, [game]);

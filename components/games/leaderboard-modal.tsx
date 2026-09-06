@@ -33,6 +33,8 @@ export function LeaderboardModal({
 
   // Load saved player name when component mounts
   useEffect(() => {
+    // Stored player name is client-only and read after mount.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     const savedName = getStoredPlayerName();
     if (savedName) {

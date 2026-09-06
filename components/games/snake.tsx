@@ -56,11 +56,13 @@ export function SnakeGame({
       score: 0,
       gameOver: false,
     };
+    /* eslint-disable react-hooks/set-state-in-effect */
     setSnake([{ x: 10, y: 10 }]);
     setFood({ x: 15, y: 15 });
     setDirection("right");
     setScore(0);
     setIsGameOver(false);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   // Keyboard controls
@@ -105,7 +107,7 @@ export function SnakeGame({
       gameStateRef.current.direction = gameStateRef.current.nextDirection;
 
       const head = gameStateRef.current.snake[0];
-      let newHead = { ...head };
+      const newHead = { ...head };
 
       switch (gameStateRef.current.direction) {
         case "up":

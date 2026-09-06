@@ -1,239 +1,228 @@
-"use client";
-
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { PageContainer } from "@/components/layout/page-container";
+import { ReactNode } from "react";
+import { Mail, Github, Linkedin, FileText, ChevronsUpDown, ArrowUpRight } from "lucide-react";
 import { getData } from "@/lib/data";
-import { Badge } from "@/components/ui/badge";
-import { HeatmapCalendar } from "@/components/ui/contribution-heatmap";
-import { TechStackCarousel } from "@/components/card/tech-stack-carousel";
+import { getGitHubContributions } from "@/lib/github";
+import { siteConfig } from "@/lib/site";
+import { generateSlug } from "@/lib/utils";
+import { Performance } from "@/components/home/performance";
+import { ExperienceRail } from "@/components/home/experience-rail";
+import { SkillsGrid } from "@/components/home/skills-grid";
+import { ChromeHider } from "@/components/home/chrome-hider";
 
-import { FocusBadge } from "@/components/card/focus-bage";
-import Unfold from "@/public/icons/unfold.png";
-import Coinbase from "@/public/icons/coinbase-logo-icon.webp";
-
-// Generate sample contribution data for demo
-function generateContributionData() {
-  const data = [];
-  const today = new Date();
-
-  for (let i = 0; i < 365; i++) {
-    const date = new Date(today);
-    date.setDate(date.getDate() - i);
-
-    // Random contribution pattern with some clusters
-    const random = Math.random();
-    let value = 0;
-
-    if (random > 0.3) {
-      // More activity on weekdays
-      const day = date.getDay();
-      const isWeekday = day >= 1 && day <= 5;
-
-      if (isWeekday) {
-        value = Math.floor(Math.random() * 15);
-      } else {
-        value = Math.floor(Math.random() * 8);
-      }
-    }
-
-    data.push({
-      date: date.toISOString().split('T')[0],
-      value,
-    });
-  }
-
-  return data;
+function SectionHead({
+  children,
+  action,
+}: {
+  children: ReactNode;
+  action?: ReactNode;
+}) {
+  return (
+    <div className="mb-6 flex items-center justify-between gap-3">
+      <h2 className="text-base font-normal text-[lab(94.2_0_0)]">{children}</h2>
+      {action}
+    </div>
+  );
 }
 
-export default function Home() {
-  const [cellSize, setCellSize] = useState<number>();
-  const [cellGap, setCellGap] = useState<number>();
-  const [mounted, setMounted] = useState(false);
-  const [contributionData, setContributionData] = useState<Array<{ date: string; value: number }>>([]);
+function SeeMore({ href }: { href: string }) {
+  return (
+    <Link
+      href={href}
+      className="inline-flex items-center gap-1 text-sm text-[lab(66.128_0_0)] transition-colors hover:text-[lab(94.2_0_0)]"
+    >
+      See more
+      <ChevronsUpDown className="h-3.5 w-3.5" />
+    </Link>
+  );
+}
 
-  const data = getData();
-  const { personal, interests } = data;
+function BioLink({
+  href,
+  external,
+  children,
+}: {
+  href: string;
+  external?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className="text-[lab(94.2_0_0)] underline decoration-[lab(100_0_0/0.25)] underline-offset-[3px] transition-colors hover:decoration-[lab(94.2_0_0)]"
+    >
+      {children}
+    </Link>
+  );
+}
 
-  useEffect(() => {
-    const updateCellSize = () => {
-      const availableWidth = Math.min(window.innerWidth - 48, 648);
+function IconLink({
+  href,
+  label,
+  external,
+  children,
+}: {
+  href: string;
+  label: string;
+  external?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      aria-label={label}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className="text-[lab(66.128_0_0)] transition-colors hover:text-[lab(94.2_0_0)]"
+    >
+      {children}
+    </Link>
+  );
+}
 
-      if (availableWidth < 380) {
-        setCellSize(6);
-        setCellGap(1);
-      } else if (availableWidth < 480) {
-        setCellSize(8);
-        setCellGap(1);
-      } else if (availableWidth < 600) {
-        setCellSize(9);
-        setCellGap(1);
-      } else {
-        setCellSize(10);
-        setCellGap(1);
-      }
-    };
+const XIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
 
-    updateCellSize();
-    setContributionData(generateContributionData());
-    setMounted(true);
-    window.addEventListener("resize", updateCellSize);
-    return () => window.removeEventListener("resize", updateCellSize);
-  }, []);
+type FeaturedProject = {
+  name: string;
+  tagline: string;
+};
+
+const FEATURED: FeaturedProject[] = [
+  { name: "Up.ly", tagline: "AI career-prep platform with a custom MCP server" },
+  { name: "Redeem", tagline: "Production coupon-management REST API in Go" },
+  { name: "cUrlBaby", tagline: "Terminal-native API testing, a lightweight Postman" },
+  { name: "VibeUI", tagline: "AI-customizable component library on shadcn/ui" },
+];
+
+export default async function Home() {
+  const { personal } = getData();
+  const contributions = await getGitHubContributions(siteConfig.githubUsername);
 
   return (
-    <PageContainer>
-      {/* Intro */}
-      <section className="mb-10">
-        <h2 className="text-xl md:text-2xl font-medium leading-relaxed mb-4">
-          Hey, I&apos;m {personal.name.split(" ")[0]}! I&apos;m a{" "}
-          <span className="font-semibold italic underline">{personal.title}</span> based in{" "}
-          <span className="font-semibold">
-            {personal.location.city}, {personal.location.country}
-          </span>
-          , and a passionate learner who tries to solve problems through code.
-        </h2>
-
-        <TechStackCarousel />
-
-        {/* <p className="text-muted-foreground leading-relaxed">
-          I work mainly in Web Development and AI/ML, and I&apos;m always open
-          to learning new things as and when required with a core focus on
-          building systems.
-        </p> */}
-      </section>
-
-      {/* Current */}
-      <section className="mb-10">
-        <h3 className="text-lg font-semibold mb-3">Current</h3>
-        <p className="text-muted-foreground leading-relaxed">
-          Student at{" "}
-          <Link
-            href="#"
-            className="text-foreground underline hover:no-underline"
-          >
-            {personal.location.institution}
-          </Link>
-          , learning new things everyday and building projects.
-        </p>
-      </section>
-
-      {/* Contribution Heatmap */}
-      <section className="mb-10 py-6">
-        <div className="mb-4 pb-4 border-b border-border">
-          <p className="text-sm text-muted-foreground">
-            {contributionData.filter(d => d.value > 0).length} contributions in the last year
-          </p>
-        </div>
-        {mounted && cellSize !== undefined && cellGap !== undefined ? (
-          <div className="w-full overflow-x-auto scrollbar-hide">
-            <HeatmapCalendar
-              data={contributionData}
-              rangeDays={365}
-              cellSize={cellSize}
-              cellGap={cellGap}
-              palette={[
-                "var(--contribution-0)",
-                "var(--contribution-1)",
-                "var(--contribution-2)",
-                "var(--contribution-3)",
-                "var(--contribution-4)",
-              ]}
-              axisLabels={{
-                showWeekdays: false,
-                monthFormat: "short",
-                minWeekSpacing: 2,
-              }}
-              legend={{
-                placement: "bottom",
-                lessText: "Less",
-                moreText: "More",
-                showText: true,
-              }}
-            />
+    <div className="min-h-screen w-full bg-[lab(3.04863_0_0)] text-[lab(94.2_0_0)]">
+      <ChromeHider />
+      <main className="mx-auto w-full max-w-[700px] px-8 pt-14">
+        {/* Header */}
+        <section className="animate-fade-in-blur">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h1 className="text-base font-medium text-[lab(94.2_0_0)]">
+                {personal.name}
+              </h1>
+              <p className="mt-1 text-base text-[lab(66.128_0_0)]">
+                Full-stack &amp; AI/ML engineer
+              </p>
+            </div>
+            <div className="mt-1 flex items-center gap-4">
+              <IconLink href={`https://twitter.com/${personal.contact.twitter}`} label="X" external>
+                <XIcon className="h-[15px] w-[15px]" />
+              </IconLink>
+              <IconLink href={`https://github.com/${personal.contact.github}`} label="GitHub" external>
+                <Github className="h-4 w-4" />
+              </IconLink>
+              <IconLink href={`https://linkedin.com/in/${personal.contact.linkedin}`} label="LinkedIn" external>
+                <Linkedin className="h-4 w-4" />
+              </IconLink>
+              <IconLink href={`mailto:${personal.contact.email}`} label="Email">
+                <Mail className="h-4 w-4" />
+              </IconLink>
+              <IconLink href="/resume/MaheepTulsian.pdf" label="Resume" external>
+                <FileText className="h-4 w-4" />
+              </IconLink>
+            </div>
           </div>
-        ) : null}
-      </section>
 
-      {/* Highlights */}
-      <section className="mb-10">
-        <h3 className="text-lg font-semibold mb-3">Highlights</h3>
-        <ul className="space-y-2">
-          <li className="text-muted-foreground flex items-center gap-2">
-            <span className="text-foreground">-</span>
-            Winner of 
-            <FocusBadge text="Unfold 2024" icon={{ type: "image", value: Unfold }} href="https://unfold2024.devfolio.co/overview"/>
-            in the
-            <FocusBadge text="Coinbase" icon={{ type: "image", value: Coinbase }} href="https://unfold2024.devfolio.co/overview"/>
-          </li>
+          {/* Bio */}
+          <div className="mt-8 space-y-4 text-base leading-6 text-[oklch(0.75_0_0)]">
+            <p>
+              yo, I&apos;m Maheep, a full-stack &amp; AI/ML engineer based in
+              India, obsessed with user experience, real-time systems, and good
+              design.
+            </p>
+            <p>
+              So far my projects have won{" "}
+              <BioLink href="/projects">2 hackathon tracks</BioLink> and earned
+              real revenue.
+            </p>
+          </div>
 
-          <li className="text-muted-foreground flex items-start gap-2">
-            <span className="text-foreground">-</span>
-            Generated ₹28,000 in affiliate revenue with EveryDukan
-          </li>
+          {/* CTA */}
+          <div className="relative mt-6">
+            <div className="pointer-events-none absolute right-full top-1/2 mr-6 hidden -translate-y-1/2 items-center gap-1 whitespace-nowrap lg:flex">
+              <span className="font-heading-italic text-sm text-[lab(66.128_0_0)]">
+                open to work
+              </span>
+              <svg viewBox="0 0 60 24" className="h-5 w-14 text-[lab(66.128_0_0)]" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round">
+                <path d="M2 4c14 14 30 16 54 14" />
+                <path d="M50 12l6 6-9 1" />
+              </svg>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <a
+                href={siteConfig.calUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-8 items-center rounded-[10px] bg-[lab(94.2_0_0)] px-2.5 text-sm font-medium text-[lab(8_0_0)] transition-opacity hover:opacity-90"
+              >
+                Book a call
+              </a>
+              <a
+                href={`https://twitter.com/${personal.contact.twitter}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-8 items-center gap-[3px] rounded-[10px] border border-[lab(100_0_0/0.14)] px-2.5 text-sm font-medium text-[lab(94.2_0_0)] transition-colors hover:border-[lab(100_0_0/0.3)]"
+              >
+                Message on <XIcon className="h-3.5 w-3.5" />
+              </a>
+            </div>
+          </div>
+        </section>
 
-          <li className="text-muted-foreground flex items-start gap-2">
-            <span className="text-foreground">-</span>
-            Published an npm package with 45+ weekly downloads
-          </li>
+        {/* Performance */}
+        <section className="mt-12">
+          <SectionHead>Performance</SectionHead>
+          <Performance data={contributions} />
+        </section>
 
-          <li className="text-muted-foreground flex items-start gap-2">
-            <span className="text-foreground">-</span>
-          </li>
+        {/* Experience */}
+        <section className="mt-12">
+          <SectionHead action={<SeeMore href="/resume/MaheepTulsian.pdf" />}>Experience</SectionHead>
+          <ExperienceRail />
+        </section>
 
-          <li className="text-muted-foreground flex items-start gap-2">
-            <span className="text-foreground">-</span>
-            Reduced admin lookup time from 3–5 minutes to 10–30 seconds
-          </li>
+        {/* Skills */}
+        <section className="mt-12">
+          <SkillsGrid />
+        </section>
 
-          <li className="text-muted-foreground flex items-start gap-2">
-            <span className="text-foreground">-</span>
-            Built high-throughput systems handling 1,000+ requests/sec with sub-50ms latency
-          </li>
-        </ul>
-      </section>
-
-      {/* Interests */}
-      <section className="mb-10">
-        <h3 className="text-lg font-semibold mb-3">Interests</h3>
-        <div className="flex flex-wrap gap-2">
-          {interests.map((interest, index) => (
-            <Badge key={index} variant="secondary" className="font-normal">
-              {interest}
-            </Badge>
-          ))}
-        </div>
-      </section>
-
-      {/* Social Links */}
-      <section>
-        <div className="flex items-center gap-2 text-sm flex-wrap">
-          <Link
-            href={`https://github.com/${personal.contact.github}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:no-underline"
-          >
-            Github
-          </Link>
-          <span className="text-muted-foreground">-</span>
-          <Link
-            href={`https://linkedin.com/in/${personal.contact.linkedin}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:no-underline"
-          >
-            LinkedIn
-          </Link>
-          <span className="text-muted-foreground">-</span>
-          <Link
-            href={`mailto:${personal.contact.email}`}
-            className="underline hover:no-underline"
-          >
-            Email
-          </Link>
-        </div>
-      </section>
-    </PageContainer>
+        {/* Projects */}
+        <section className="mt-12 pb-24">
+          <SectionHead action={<SeeMore href="/projects" />}>Projects</SectionHead>
+          <div className="-mx-3">
+            {FEATURED.map((project) => (
+              <Link
+                key={project.name}
+                href={`/projects/${generateSlug(project.name)}`}
+                className="group flex items-center gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-[lab(100_0_0/0.035)]"
+              >
+                <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+                  <span className="text-sm font-medium text-[lab(94.2_0_0)]">
+                    {project.name}
+                  </span>
+                  <span className="truncate text-sm text-[lab(55_0_0)]">
+                    {project.tagline}
+                  </span>
+                </div>
+                <ArrowUpRight className="h-4 w-4 shrink-0 -translate-x-1 text-[lab(50_0_0)] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+              </Link>
+            ))}
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }

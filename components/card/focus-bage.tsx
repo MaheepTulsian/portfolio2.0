@@ -25,31 +25,24 @@ export function FocusBadge({
   const hasText = text && text.trim().length > 0;
 
   const baseClassName = `
+    group/badge
     inline-flex items-center gap-2.5
     w-fit max-w-full
 
-    rounded-xl
+    rounded-full
     px-3 py-1.5 sm:px-3.5 sm:py-2
 
     text-sm sm:text-base font-medium
     tracking-tight
 
-    border border-dashed
-    border-neutral-300
-    dark:border-neutral-600
+    border border-border/70
+    bg-transparent
+    text-foreground
 
-    bg-neutral-100
-    text-neutral-800
+    transition-all duration-200 ease-[cubic-bezier(0.22,1,0.36,1)]
 
-    dark:bg-neutral-800
-    dark:text-neutral-100
-
-    shadow-sm
-    transition-all duration-200 ease-out
-
-    hover:shadow-md
-    hover:-translate-y-0.5
-    active:translate-y-0
+    hover:border-foreground/25
+    hover:bg-[color-mix(in_oklch,var(--foreground)_4%,transparent)]
 
     whitespace-nowrap
   `;

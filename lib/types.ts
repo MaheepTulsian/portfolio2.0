@@ -106,9 +106,4 @@ export interface NavItem {
 export const navigation: NavItem[] = [
   { name: "Home", href: "/" },
   { name: "Projects", href: "/projects" },
-  { name: "Resume", href: "/resume" },
-  { name: "Blog", href: "/blog" },
-  { name: "Contact", href: "/contact" },
-  { name: "Play", href: "/games" },
-  { name: "Labs", href: "/labs" },
 ];

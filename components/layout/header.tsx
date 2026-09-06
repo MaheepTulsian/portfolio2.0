@@ -18,15 +18,13 @@ function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // The inline script in the document head has already applied the correct
+    // theme class before paint (avoiding a flash), so we just read it back here
+    // to keep the toggle's icon in sync.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
-    const savedTheme = localStorage.getItem("theme") as Theme | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.classList.toggle("dark", savedTheme === "dark");
-    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setTheme("dark");
-      document.documentElement.classList.add("dark");
-    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
   }, []);
 
   const toggleTheme = () => {
@@ -36,10 +34,13 @@ function ThemeToggle() {
     localStorage.setItem("theme", newTheme);
   };
 
+  const toggleClasses =
+    "flex items-center justify-center w-9 h-9 -mr-1.5 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-colors";
+
   if (!mounted) {
     return (
-      <button className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Toggle theme">
-        <Moon className="w-5 h-5" />
+      <button className={toggleClasses} aria-label="Toggle theme">
+        <Moon className="w-[18px] h-[18px]" />
       </button>
     );
   }
@@ -47,13 +48,13 @@ function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="text-muted-foreground hover:text-foreground transition-colors"
+      className={toggleClasses}
       aria-label="Toggle theme"
     >
       {theme === "dark" ? (
-        <Sun className="w-5 h-5" />
+        <Sun className="w-[18px] h-[18px]" />
       ) : (
-        <Moon className="w-5 h-5" />
+        <Moon className="w-[18px] h-[18px]" />
       )}
     </button>
   );
@@ -65,73 +66,77 @@ export function Header({ name }: HeaderProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Check if navbar should be sticky (when scrolled past the name section)
-      const scrollPosition = window.scrollY;
-      setIsSticky(scrollPosition > 100);
+      setIsSticky(window.scrollY > 16);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <header className="w-full pt-20 md:pt-32 pb-8 px-2">
-      {/* Name - centered */}
-      <div className="flex flex-col items-center gap-6 max-w-4xl mx-auto mb-12">
-        <Link href="/" className="group">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight">
-            <span className="text-muted-foreground group-hover:text-foreground transition-colors">
-              &gt;
-            </span>{" "}
-            {name}
-          </h1>
-        </Link>
-
-        {/* Latest Commit */}
-        <p className="text-sm text-muted-foreground">
-          Latest Commit:{" "}
-          {new Date().toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </p>
-      </div>
-
-      {/* Navigation - sticky with glassmorphic effect */}
-      <div className={cn("w-full", isSticky ? "h-16" : "")}>
+    <header className="w-full pt-4 md:pt-6">
+      <div className={cn("w-full", isSticky ? "h-14" : "")}>
         <nav
           className={cn(
-            "transition-all duration-300 ease-in-out",
+            "transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
             isSticky
-              ? "fixed top-0 left-0 right-0 z-40 py-3 px-2 bg-background/70 backdrop-blur-xl border-b border-border/50 shadow-sm"
-              : "relative w-full max-w-4xl mx-auto"
+              ? "fixed top-0 left-0 right-0 z-40 border-b border-border/60 bg-background/75 backdrop-blur-xl"
+              : "relative mx-auto w-full max-w-2xl"
           )}
         >
-          <div className={cn("flex items-center justify-between gap-4", isSticky ? "max-w-4xl mx-auto" : "mb-3")}>
-            <div className="flex items-center gap-6 md:gap-8 overflow-x-auto scrollbar-hide flex-1 px-4">
-              {navigation.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "text-base transition-colors whitespace-nowrap",
-                    pathname === item.href
-                      ? "text-foreground font-medium"
-                      : "text-muted-foreground hover:text-foreground"
-                  )}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-            <div className="flex-shrink-0 pr-4 pt-2">
-              <ThemeToggle />
+          <div
+            className={cn(
+              "flex items-center justify-between gap-4 px-4",
+              isSticky ? "mx-auto h-14 max-w-2xl" : "h-14"
+            )}
+          >
+            {/* Brand */}
+            <Link
+              href="/"
+              className="group shrink-0 font-heading text-base font-semibold tracking-tight"
+            >
+              <span className="text-muted-foreground transition-colors group-hover:text-foreground">
+                &gt;
+              </span>{" "}
+              {name}
+            </Link>
+
+            {/* Nav + theme */}
+            <div className="flex min-w-0 items-center">
+              <div className="flex items-center gap-0.5 overflow-x-auto scrollbar-hide">
+                {navigation.map((item) => {
+                  const active = pathname === item.href;
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={cn(
+                        "relative rounded-full px-2.5 py-1.5 text-sm whitespace-nowrap transition-colors",
+                        active
+                          ? "text-foreground font-medium"
+                          : "text-muted-foreground hover:text-foreground hover:bg-accent/60"
+                      )}
+                    >
+                      {item.name}
+                      {active && (
+                        <span className="absolute -bottom-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-foreground" />
+                      )}
+                    </Link>
+                  );
+                })}
+              </div>
+              <div className="ml-1 shrink-0">
+                <ThemeToggle />
+              </div>
             </div>
           </div>
 
-          {/* Bottom Divider - only show when not sticky */}
-          {!isSticky && <div className="h-px bg-border mt-3" />}
+          {!isSticky && (
+            <div className="mx-auto max-w-2xl px-4">
+              <div className="h-px bg-border/70" />
+            </div>
+          )}
         </nav>
       </div>
     </header>

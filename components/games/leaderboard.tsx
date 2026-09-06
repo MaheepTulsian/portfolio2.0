@@ -20,6 +20,9 @@ export function Leaderboard({ game, compact = false }: LeaderboardProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Leaderboard is persisted in localStorage (client-only), so it is read
+    // and applied to state after mount.
+    /* eslint-disable react-hooks/set-state-in-effect */
     const key = `leaderboard_${game}`;
     const stored = localStorage.getItem(key);
     if (stored) {
@@ -35,6 +38,7 @@ export function Leaderboard({ game, compact = false }: LeaderboardProps) {
       }
     }
     setMounted(true);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [game]);
 
   if (!mounted) return null;

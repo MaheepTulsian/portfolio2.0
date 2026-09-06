@@ -8,12 +8,14 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-dm-sans);
+  --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-space-grotesk);
+  --font-heading: var(--font-hanken-grotesk);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -27,45 +29,54 @@
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* Triple Tone Color Scheme: Warm Beige, Light Gray, Sharp Black */
+/* ---------------------------------------------------------------------------
+   Monochrome system (OKLCH). Lifted card surfaces, translucent borders.
+   Craft lives in the inner-shadow utilities and blur-in reveals below.
+--------------------------------------------------------------------------- */
 :root {
-  --radius: 0.5rem;
+  --radius: 0.75rem;
 
-  /* Soft white background (neutral, non-clinical) */
-  --background: #FAFAF9;
+  /* Warm paper page; white plates rise above it (inverted elevation). */
+  --background: oklch(0.984 0.0022 75);
+  --foreground: oklch(0.205 0.006 265);
 
-  /* Sharp black for text */
-  --foreground: #0A0A0A;
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.205 0.006 265);
 
-  /* Card: Slightly elevated soft white */
-  --card: #FFFFFF;
-  --card-foreground: #0A0A0A;
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.205 0.006 265);
 
-  /* Primary: Sharp black */
-  --primary: #0A0A0A;
-  --primary-foreground: #FAFAF9;
+  --primary: oklch(0.21 0.006 265);
+  --primary-foreground: oklch(0.985 0 0);
 
-  /* Secondary: Soft neutral gray */
-  --secondary: #F1F1EF;
-  --secondary-foreground: #0A0A0A;
+  --secondary: oklch(0.968 0.0022 75);
+  --secondary-foreground: oklch(0.28 0.006 265);
 
-  /* Muted: Calm neutral gray */
-  --muted: #ECECEA;
-  --muted-foreground: #6B6966;
+  --muted: oklch(0.968 0.0022 75);
+  --muted-foreground: oklch(0.53 0.006 265);
 
-  /* Accent: Same family, no noise */
-  --accent: #ECECEA;
-  --accent-foreground: #0A0A0A;
+  --accent: oklch(0.965 0.0025 75);
+  --accent-foreground: oklch(0.24 0.006 265);
 
-  /* Border / input: Low-contrast but visible */
-  --border: #DADAD6;
-  --input: #DADAD6;
-  --ring: #0A0A0A;
+  --border: oklch(0.905 0.003 75);
+  --input: oklch(0.9 0.003 75);
+  --ring: oklch(0.62 0.006 265);
 
-  /* Contribution colors (GitHub-style greens, tuned for white bg) */
-  --contribution-0: #FAFAF9;
+  /* Readable secondary body copy (was a washed-out #909092). */
+  --text-secondary: oklch(0.44 0.006 265);
+
+  /* Elevation — soft, layered, light-from-above. */
+  --shadow-plate: 0 1px 2px rgba(17, 18, 22, 0.04), 0 4px 14px -6px rgba(17, 18, 22, 0.06);
+  --shadow-lift: 0 2px 4px rgba(17, 18, 22, 0.05), 0 14px 34px -12px rgba(17, 18, 22, 0.12);
+  --highlight-top: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  --accent-live: oklch(0.7 0.16 155);
+
+  /* Contribution colors (GitHub-style greens, tuned for paper bg) */
+  --contribution-0: oklch(0.93 0.003 75);
   --contribution-1: #c6f6d5;
   --contribution-2: #9ae6b4;
   --contribution-3: #68d391;
@@ -73,31 +84,41 @@
 }
 
 .dark {
-  /* Dark mode: Invert the tones */
-  --background: #0A0A0A;
-  --foreground: #EDEBE8;
+  /* Deep, quiet charcoal; a soft top glow lifts it (see body::before). */
+  --background: oklch(0.155 0.004 265);
+  --foreground: oklch(0.97 0.004 265);
 
-  --card: #161616;
-  --card-foreground: #EDEBE8;
+  --card: oklch(0.213 0.005 265);
+  --card-foreground: oklch(0.97 0.004 265);
 
-  --primary: #EDEBE8;
-  --primary-foreground: #0A0A0A;
+  --popover: oklch(0.213 0.005 265);
+  --popover-foreground: oklch(0.97 0.004 265);
 
-  --secondary: #1F1F1F;
-  --secondary-foreground: #EDEBE8;
+  --primary: oklch(0.93 0.004 265);
+  --primary-foreground: oklch(0.2 0.006 265);
 
-  --muted: #262626;
-  --muted-foreground: #A3A19D;
+  --secondary: oklch(0.255 0.005 265);
+  --secondary-foreground: oklch(0.97 0.004 265);
 
-  --accent: #262626;
-  --accent-foreground: #EDEBE8;
+  --muted: oklch(0.255 0.005 265);
+  --muted-foreground: oklch(0.68 0.006 265);
 
-  --border: #333330;
-  --input: #333330;
-  --ring: #EDEBE8;
+  --accent: oklch(0.27 0.006 265);
+  --accent-foreground: oklch(0.97 0.004 265);
 
-  /* Contribution colors (GitHub-style greens for dark) */
-  --contribution-0: #161616;
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.55 0.006 265);
+
+  --text-secondary: oklch(0.72 0.006 265);
+
+  --shadow-plate: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+  --shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.5), 0 18px 40px -14px rgba(0, 0, 0, 0.7);
+  --highlight-top: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  --accent-live: oklch(0.78 0.17 155);
+
+  --contribution-0: oklch(0.255 0.005 265);
   --contribution-1: #0e4429;
   --contribution-2: #006d32;
   --contribution-3: #26a641;
@@ -108,85 +129,236 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Ambient page surface — a soft top glow and a fine grain, so content can
+     sit directly on the background without any card chrome. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(1100px 560px at 50% -8%, rgba(255, 255, 255, 0.85), transparent 68%),
+      radial-gradient(circle, rgba(18, 20, 28, 0.05) 0.5px, transparent 0.6px);
+    background-size: 100% 100%, 5px 5px;
+  }
+  .dark body::before {
+    background-image:
+      radial-gradient(1100px 620px at 50% -10%, rgba(255, 255, 255, 0.055), transparent 66%),
+      radial-gradient(circle, rgba(255, 255, 255, 0.032) 0.5px, transparent 0.6px);
+  }
+
+  /* Display typography — Hanken Grotesk */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  h1 {
+    letter-spacing: -0.035em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--foreground);
+    color: var(--background);
   }
 }
 
-/* Typography */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-space-grotesk);
-  font-weight: 600;
-  letter-spacing: -0.025em;
+@layer components {
+  /* Hanken Grotesk helpers */
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+  .font-heading-italic {
+    font-family: var(--font-heading);
+    font-style: italic;
+  }
+
+  /* Monospace eyebrow / instrument label. */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  /* Tabular figures for stats / data. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1, "cv01" 1;
+  }
+
+  /* Elevated white plate that rises above the paper background. */
+  .plate {
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-plate), var(--highlight-top);
+  }
+  .plate-hover {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.35s ease, box-shadow 0.35s ease;
+  }
+  .plate-hover:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in oklch, var(--foreground) 16%, transparent);
+    box-shadow: var(--shadow-lift), var(--highlight-top);
+  }
+
+  /* Animated underline links */
+  .link-underline {
+    position: relative;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease;
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
 }
 
-body {
-  font-family: var(--font-dm-sans);
+/* ---------------------------------------------------------------------------
+   Surface craft — a crisp top highlight instead of muddy insets.
+--------------------------------------------------------------------------- */
+.btn-inner-shadow {
+  box-shadow: var(--shadow-plate), var(--highlight-top);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.btn-inner-shadow:hover {
+  box-shadow: var(--shadow-lift), var(--highlight-top);
 }
 
-/* Links */
-a {
-  text-decoration-color: currentColor;
-  text-underline-offset: 4px;
-  transition: all 0.2s ease;
+.skill-inner-shadow {
+  box-shadow: var(--shadow-plate), var(--highlight-top);
 }
 
-/* Smooth transitions globally */
-* {
-  transition-property: color, background-color, border-color;
-  transition-duration: 0.15s;
-  transition-timing-function: ease;
+.tag-inner-shadow {
+  box-shadow: var(--highlight-top);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-/* Selection */
-::selection {
-  background-color: var(--foreground);
-  color: var(--background);
+/* Subtle card lift on hover */
+.card-hover {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+  box-shadow: var(--shadow-plate), var(--highlight-top);
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in oklch, var(--foreground) 16%, transparent);
+  box-shadow: var(--shadow-lift), var(--highlight-top);
 }
 
-/* Scrollbar */
+/* ---------------------------------------------------------------------------
+   Reveal-on-load — fade in with a soft blur.
+--------------------------------------------------------------------------- */
+@keyframes fadeInBlur {
+  0% {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-blur {
+  animation: fadeInBlur 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-fade-in-blur {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+
+/* Secondary body copy — unlayered so it beats Tailwind's generated
+   `text-secondary` color utility (which maps to the surface token). */
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+/* Hairline-separated list rows — content on the page, no card chrome.
+   A faint wash bleeds slightly past the text on hover. */
+.list-row {
+  position: relative;
+  transition: color 0.25s ease;
+}
+.list-row::before {
+  content: "";
+  position: absolute;
+  inset: 0 -1.25rem;
+  border-radius: 0.75rem;
+  background: color-mix(in oklch, var(--foreground) 4%, transparent);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.list-row:hover::before {
+  opacity: 1;
+}
+
+/* Interaction transitions */
+a,
+button,
+[role="button"] {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Refined scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
 }
-
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: var(--muted-foreground);
-  border-radius: 4px;
+  background: var(--border);
+  border-radius: 9999px;
+  border: 2px solid var(--background);
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--foreground);
+  background: var(--muted-foreground);
 }
 
-/* Hide scrollbar but keep functionality */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
-}
-
-/* Tech Stack Carousel Animation */
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-.animate-scroll {
-  animation: scroll 40s linear infinite;
-}
-
-.animate-scroll:hover {
-  animation-play-state: paused;
 }

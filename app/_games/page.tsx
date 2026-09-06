@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { PageContainer } from "@/components/layout/page-container";
 import { GameBoard } from "@/components/games/game-board";
 import { Badge } from "@/components/ui/badge";
@@ -68,64 +69,42 @@ export default function GamesPage() {
       </Link>
 
       {/* Header */}
-      <header className="mb-20 max-w-xl">
-        <h1 className="text-4xl font-semibold tracking-tight mb-4">
-          Games
+      <header className="mb-16 max-w-xl animate-fade-in-blur">
+        <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+          Arcade
+        </p>
+        <h1 className="mb-4 text-4xl md:text-5xl font-semibold tracking-tight">
+          <span className="font-heading-italic font-normal">Games</span>
         </h1>
-        <p className="text-muted-foreground leading-relaxed">
+        <p className="leading-relaxed text-secondary">
           Classic arcade games rebuilt from scratch. Each game tracks your high score locally.
         </p>
       </header>
 
-      {/* Game Selection */}
-      {/* <div className="flex flex-col gap-6 max-w-xl">
+      <div className="flex flex-col gap-3 max-w-2xl">
         {games.map((game) => (
           <button
             key={game.id}
-            onClick={() => setSelectedGame(game.id)}
-            type="submit"
-            className="group flex rounded-xl border border-border overflow-hidden transition-all hover:-translate-y-0.5 hover:border-foreground/30 text-left"
-          >
-            {game.banner && (
-              <div className="relative w-40 aspect-square overflow-hidden bg-muted flex-shrink-0">
-                <img
-                  src={game.banner.src}
-                  alt={game.title}
-                  className="h-full w-full object-cover group-hover:scale-105 transition-transform"
-                />
-              </div>
-            )}
-
-            <div className="flex flex-col justify-between px-6 py-5">
-              <h2 className="text-lg font-medium mb-1 group-hover:text-foreground transition-colors">
-                {game.title}
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                {game.description}
-              </p>
-            </div>
-
-            <ArrowUpRight className="h-5 w-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity ml-4 flex-shrink-0" />
-          </button>
-        ))}
-      </div> */}
-
-      <div className="flex flex-col gap-4 max-w-2xl">
-        {games.map((game) => (
-          <button
-            key={game.id}
-            onClick={() => setSelectedGame(game.id)}
+            onClick={() => game.isLive && setSelectedGame(game.id)}
             type="button"
-            className="group relative flex items-center rounded-lg border border-border bg-background overflow-hidden
-                 transition-all hover:-translate-y-0.5 hover:border-foreground/30 text-left"
+            disabled={!game.isLive}
+            aria-disabled={!game.isLive}
+            className={`group relative flex items-center rounded-xl border border-border bg-card overflow-hidden
+                 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] text-left ${
+                   game.isLive
+                     ? "hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-lg"
+                     : "cursor-not-allowed opacity-60"
+                 }`}
           >
             {/* Banner */}
             {game.banner && (
               <div className="relative w-20 aspect-square overflow-hidden bg-muted flex-shrink-0">
-                <img
-                  src={game.banner.src}
+                <Image
+                  src={game.banner}
                   alt={game.title}
-                  className="h-full w-full object-cover group-hover:scale-105 transition-transform"
+                  fill
+                  sizes="80px"
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
             )}
@@ -133,9 +112,9 @@ export default function GamesPage() {
             {/* Content */}
             <div className="flex flex-col items-start justify-center gap-2 px-4 py-3 flex-1 min-w-0">
               <div className="flex items-center gap-2 min-w-0">
-                <h1 className="text-sm font-medium truncate group-hover:text-foreground transition-colors">
+                <h2 className="text-sm font-medium truncate group-hover:text-foreground transition-colors">
                   {game.title}
-                </h1>
+                </h2>
 
                 {game.remark && (
                   <Badge
@@ -169,7 +148,8 @@ export default function GamesPage() {
 
       {/* Footer Note */}
       <p className="mt-20 text-sm text-muted-foreground max-w-xl">
-        Scores are saved locally. Use keyboard arrows for Tetris, arrow keys or on-screen controls for Snake.
+        Scores are saved locally on your device. Use the arrow keys to play
+        Tetris — more games are on the way.
       </p>
     </PageContainer>
   );

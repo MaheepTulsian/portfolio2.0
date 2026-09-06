@@ -1,30 +1,52 @@
 "use client";
 
-import { ReactNode, useState, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ProgressiveBlur } from "@/components/layout/progressive-blur";
-// import { WhackAMole } from "@/components/fun/whack-a-mole";
 import { HeaderProvider, useHeader } from "@/components/layout/header-provider";
-// import { AppleHelloLoader } from "@/components/loader/apple-hello-loader";
 import Loading from "@/components/loader/greet-loader";
 import { AnimatePresence, motion } from "framer-motion";
 
+const GREETED_KEY = "greeted";
+
 function LayoutContent({
   name,
-  seeking,
   children,
 }: {
   name: string;
-  seeking: string;
   children: ReactNode;
 }) {
-  const { showHeader } = useHeader();
+  const { showHeader, showFooter } = useHeader();
   const [showLoader, setShowLoader] = useState(true);
   const [hasLoaded, setHasLoaded] = useState(false);
 
+  useEffect(() => {
+    // Only play the greeting once per session, and never for visitors who
+    // prefer reduced motion. Everyone else (repeat views, hard refreshes,
+    // deep links) skips straight to the content.
+    const alreadyGreeted =
+      typeof window !== "undefined" &&
+      window.sessionStorage.getItem(GREETED_KEY) === "1";
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (alreadyGreeted || prefersReducedMotion) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setShowLoader(false);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setHasLoaded(true);
+    }
+  }, []);
+
   const handleAnimationComplete = () => {
     // Start fade-up animation after all greetings complete
+    try {
+      window.sessionStorage.setItem(GREETED_KEY, "1");
+    } catch {
+      // sessionStorage may be unavailable (private mode); non-fatal.
+    }
     setTimeout(() => {
       setShowLoader(false);
       setTimeout(() => {
@@ -51,7 +73,6 @@ function LayoutContent({
             className="fixed inset-0 z-50 flex items-center justify-center bg-background"
           >
             <Loading onComplete={handleAnimationComplete} />
-            {/* <AppleHelloLoader onAnimationComplete={handleAnimationComplete} /> */}
           </motion.div>
         )}
       </AnimatePresence>
@@ -69,11 +90,10 @@ function LayoutContent({
         }}
         className="w-full"
       >
-        {/* {showHeader && <WhackAMole />} */}
         <div className="flex-1 flex flex-col items-center">
           {showHeader && <Header name={name} />}
           {children}
-          {showHeader && <Footer seeking={seeking} />}
+          {showFooter && <Footer />}
         </div>
 
         {/* Progressive blur at bottom */}
@@ -85,18 +105,14 @@ function LayoutContent({
 
 export function LayoutWrapper({
   name,
-  seeking,
   children,
 }: {
   name: string;
-  seeking: string;
   children: ReactNode;
 }) {
   return (
     <HeaderProvider>
-      <LayoutContent name={name} seeking={seeking}>
-        {children}
-      </LayoutContent>
+      <LayoutContent name={name}>{children}</LayoutContent>
     </HeaderProvider>
   );
 }

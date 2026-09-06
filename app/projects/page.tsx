@@ -1,62 +1,48 @@
-import Link from "next/link";
-import { PageContainer } from "@/components/layout/page-container";
+import type { Metadata } from "next";
 import { getData } from "@/lib/data";
-import { Badge } from "@/components/ui/badge";
-import { generateSlug } from "@/lib/utils";
+import { ProjectCard } from "@/components/projects/project-card";
+import { HideNav } from "@/components/layout/hide-nav";
+import { Breadcrumb } from "@/components/layout/breadcrumb";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Projects by Maheep Tulsian spanning web, AI/ML, and systems — each built to solve a real problem end to end.",
+  alternates: { canonical: "/projects" },
+};
 
 export default function Projects() {
-  const data = getData();
-  const { projects } = data;
+  const { projects } = getData();
 
   return (
-    <PageContainer>
-      <h2 className="text-2xl font-semibold mb-8">Things I have worked on</h2>
+    <div className="min-h-screen w-full bg-[lab(3.04863_0_0)] text-[lab(94.2_0_0)]">
+      <HideNav />
+      <main className="mx-auto w-full max-w-[700px] px-8 pb-24 pt-14">
+        <Breadcrumb
+          backHref="/"
+          items={[{ label: "Home", href: "/" }, { label: "Projects" }]}
+        />
 
-      <div className="space-y-8">
-        {projects.map((project, index) => (
-          <article key={index} className="border-l-2 border-border pl-4 hover:border-foreground transition-colors">
-            <div className="flex items-start justify-between gap-2 mb-2">
-              <Link href={`/projects/${generateSlug(project.name)}`}>
-                <h3 className="text-lg font-semibold hover:underline">{project.name}</h3>
-              </Link>
-              {project.awards && project.awards.length > 0 && (
-                <Badge variant="default" className="shrink-0">
-                  Winner
-                </Badge>
-              )}
-            </div>
-            <p className="text-xs text-muted-foreground mb-3">
-              {project.category}
-            </p>
-            <p className="text-muted-foreground mb-3 leading-relaxed">
-              {project.description}
-            </p>
-            <div className="flex flex-wrap gap-1.5 mb-3">
-              {project.technologies.slice(0, 5).map((tech, techIndex) => (
-                <Badge key={techIndex} variant="outline" className="text-xs font-normal">
-                  {tech}
-                </Badge>
-              ))}
-              {project.technologies.length > 5 && (
-                <Badge variant="outline" className="text-xs font-normal">
-                  +{project.technologies.length - 5} more
-                </Badge>
-              )}
-            </div>
-            {project.awards && project.awards.length > 0 && (
-              <p className="text-sm font-medium mb-3">
-                {project.awards[0]}
-              </p>
-            )}
-            <Link
-              href={`/projects/${generateSlug(project.name)}`}
-              className="text-sm underline hover:no-underline"
-            >
-              View Details →
-            </Link>
-          </article>
-        ))}
-      </div>
-    </PageContainer>
+        <header className="mt-10 animate-fade-in-blur">
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[lab(50_0_0)]">
+            {projects.length} projects
+          </p>
+          <h1 className="mt-3 text-2xl font-medium tracking-tight text-[lab(94.2_0_0)]">
+            Things I&apos;ve{" "}
+            <span className="font-heading-italic font-normal">built</span>
+          </h1>
+          <p className="mt-2 max-w-xl text-sm leading-relaxed text-[lab(66.128_0_0)]">
+            A selection of projects spanning web, AI/ML, and systems — each one
+            built to solve a real problem end to end.
+          </p>
+        </header>
+
+        <div className="mt-10 border-t border-[lab(100_0_0/0.08)]">
+          {projects.map((project) => (
+            <ProjectCard key={project.name} project={project} />
+          ))}
+        </div>
+      </main>
+    </div>
   );
 }

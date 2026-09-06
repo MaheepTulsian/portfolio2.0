@@ -43,7 +43,13 @@
         "start": "2025-06",
         "end": "2025-08"
       },
-      "technologies": ["Python", "LangChain", "LangGraph", "Hugging Face", "Ollama"],
+      "technologies": [
+        "Python",
+        "LangChain",
+        "LangGraph",
+        "Hugging Face",
+        "Ollama"
+      ],
       "responsibilities": [
         "Refined Retrieval-Augmented Generation (RAG) pipelines by optimizing pre-prompts, improving LLM output relevance by 20%",
         "Fine-tuned local LLMs (Ollama, Hugging Face) using LangChain/LangGraph, enhancing adaptability and reducing inference latency",
@@ -61,7 +67,14 @@
         "start": "2024-06",
         "end": "2024-08"
       },
-      "technologies": ["Next.js", "Node.js", "MongoDB", "JWT", "Shadcn", "nivo-charts"],
+      "technologies": [
+        "Next.js",
+        "Node.js",
+        "MongoDB",
+        "JWT",
+        "Shadcn",
+        "nivo-charts"
+      ],
       "responsibilities": [
         "Architected a centralized student dashboard delivering a scalable codebase for long-term maintainability and seamless feature expansion",
         "Implemented advanced search, sorting, and filtering features, cutting administrator lookup time from 3–5 minutes in Excel to 10–30 seconds with significantly fewer human errors",
@@ -77,137 +90,264 @@
   "projects": [
     {
       "name": "Up.ly",
-      "description": "AI-driven career preparation platform that generates tailored resumes and cover letters based on job descriptions and user data",
-      "technologies": ["React", "Tailwind CSS", "Node.js", "Express.js", "MongoDB", "LangChain", "Python", "Chrome Extension"],
-      "github": "GITHUB LINK",
-      "features": [
-        "Generates tailored resumes and cover letters based on job descriptions and user data",
-        "Chrome extension to auto-fill job application forms, reducing manual effort and improving efficiency",
-        "AI agents using LangChain to generate personalized mock interview questions and preparation sheets aligned with job descriptions",
-        "Scalable system leveraging modern web stack for seamless user experience across resume generation, interview preparation, and application workflows"
+      "description": "An AI-powered career-preparation suite that turns a single structured profile into tailored resumes, cover letters, and interview prep — with a custom MCP server that exposes that profile as tools for LLMs and a Chrome extension for one-click job-application autofill.",
+      "technologies": [
+        "React",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "MCP",
+        "LangChain",
+        "Ollama",
+        "Chrome Extension"
       ],
-      "category": "AI/Career Tech"
+      "github": "https://github.com/MaheepTulsian/up.ly",
+      "features": [
+        "Built a custom MCP server that exposes structured user-profile data as callable tools, consumed by Claude Code and local open-source models via Ollama to generate resumes, cover letters, and interview prep",
+        "Authored structured Skills/harnesses for resume and cover-letter generation that enforce strict formatting and output constraints for consistent, high-quality results across different model runs",
+        "Structured profile builder capturing academic, work, project, publication, certification, achievement, skill and social sections as the single source of truth",
+        "ATS-optimized resume and dynamic cover-letter generation with company/role-specific keyword insertion and tone control",
+        "Company intelligence hub with localized search and a skill-gap analyzer that compares a profile against target-role requirements",
+        "Chrome extension that autofills long-form job-application fields on LinkedIn/Indeed/Glassdoor by calling the MCP-served profile data"
+      ],
+      "category": "AI / Career Tech"
     },
     {
       "name": "VibeUI",
-      "description": "Customizable component library on top of shadcn/ui, designed to adapt to unique user-specific UI/UX requirements",
-      "technologies": ["React", "JavaScript", "FastAPI", "Python", "Tailwind CSS", "shadcn/ui", "LangChain"],
-      "github": "GITHUB LINK",
-      "features": [
-        "AI-powered customization pipeline leveraging LangChain agents to interpret user requirements for design themes",
-        "Dynamically generate new UI components with personalized color palettes, styling, and themes",
-        "Developer-centric design system that enables instant generation of production-ready UI components",
-        "Published npm package with peak of 45+ weekly downloads"
+      "description": "An AI-powered UI component generator that produces brand-matched, production-ready React components from natural-language prompts, keeping the visual editor and generated code in sync.",
+      "technologies": [
+        "React",
+        "Tailwind CSS",
+        "Firebase",
+        "FastAPI",
+        "Python",
+        "PostgreSQL",
+        "LangChain"
       ],
-      "impact": {
-        "npm_downloads": "45+ weekly downloads peak"
-      },
-      "category": "Developer Tools/UI Library"
+      "github": "https://github.com/MaheepTulsian/VibeUI",
+      "features": [
+        "Chat-based, AI-driven component generation that outputs clean, copy-pasteable React code from plain-language requests",
+        "Brand profiles that persist a team's colors, typography and preferences so every generated component stays on-brand",
+        "Two-way code/design synchronization — edits in the visual editor and the code stay consistent",
+        "Growing component library (buttons, navbars, progress bars, ratings, and more) with one-click export",
+        "Firebase authentication with email and Google sign-in plus a guided brand-onboarding flow",
+        "FastAPI + PostgreSQL backend serving the generation pipeline"
+      ],
+      "category": "Developer Tools / AI"
     },
     {
-      "name": "Inventory & Supply Chain Dashboard / Ashwini",
-      "description": "Real-time inventory and supply chain dashboard to track stock levels, usage patterns, and logistics status",
-      "technologies": ["React", "FastAPI", "shadcn/ui", "Prisma", "LangChain", "NivoCharts", "OlaMaps"],
-      "github": "GITHUB LINK",
-      "features": [
-        "Real-time tracking of stock levels, usage patterns, and logistics status",
-        "Interactive visual analytics (charts, KPIs, and trend graphs) for shortage detection and demand forecasting",
-        "Integrated Ola Maps to visualize peer distribution across India",
-        "Secure CRUD workflows with role-based access control for administrators and staff"
+      "name": "BURP",
+      "description": "Agent-driven crypto investing that lets anyone put money to work on-chain through a single PYUSD payment, with LLM agents handling strategy and execution.",
+      "technologies": [
+        "React",
+        "Tailwind CSS",
+        "Solidity",
+        "web3.js",
+        "Ethereum",
+        "PYUSD",
+        "LangChain",
+        "LangGraph"
       ],
-      "category": "Enterprise/Supply Chain"
-    },
-    {
-      "name": "cUrlBaby",
-      "description": "Lightweight Java-based CLI utility for API testing replicating core Postman features",
-      "technologies": ["Java", "CLI", "Shell", "OOP", "HTTP"],
-      "github": "GITHUB LINK",
+      "github": "",
       "features": [
-        "Full HTTP operation support (GET, POST, PUT, DELETE) with timeout control and error handling",
-        "Custom JSON parser for clear console output",
-        "Intuitive workflow for streamlined request management and response visualization directly in terminal",
-        "Built with modular object-oriented patterns"
-      ],
-      "category": "Developer Tools/CLI"
-    },
-    {
-      "name": "Mirai",
-      "description": "Feature-rich Flutter mobile application for CS/IT students and professionals, centralizing job listings, internships, learning resources, career roadmaps, and GSoC organizations",
-      "technologies": ["Flutter", "Dart", "Firebase"],
-      "github": "GITHUB LINK",
-      "features": [
-        "Firebase-backed architecture using Firestore, Auth, Analytics, and FCM with Google Sign-In",
-        "Real-time data syncing, offline persistence, and personalized content delivery",
-        "Modern, scalable app architecture with Provider-based state management",
-        "Navigation 2.0 deep linking, push notifications, image caching, and performance optimizations"
-      ],
-      "category": "Mobile App/Career Tech"
-    },
-    {
-      "name": "EveryDukan",
-      "description": "Cross-platform shopping aggregation app that consolidates deals across categories with real-time discovery features",
-      "technologies": ["Flutter", "Next.js", "AWS Lambda", "MongoDB", "Serverless"],
-      "link": "PROJECT LINK",
-      "features": [
-        "Real-time deal discovery across multiple categories",
-        "Serverless backend with AWS Lambda and MongoDB for scalable operations",
-        "Efficient deal indexing"
-      ],
-      "impact": {
-        "revenue": "₹28,000 in affiliate revenue",
-        "validation": "Demonstrated product-market fit and real-world monetization success"
-      },
-      "category": "E-commerce/Mobile App"
-    },
-    {
-      "name": "Burp / BURP",
-      "description": "Platform simplifying and diversifying crypto investing through agent-driven clustering",
-      "technologies": ["React", "Tailwind CSS", "Solidity", "web3.js", "Ethereum", "PYUSD", "LangChain", "LangGraph"],
-      "github": "GITHUB LINK",
-      "features": [
-        "Conversational AI agents using LangChain & LangGraph that analyze users' investment preferences through natural dialogue",
-        "Automatically generate personalized token clusters based on user preferences",
-        "Smart contract architecture enabling single-transaction cluster purchases",
-        "Users pay once in PYUSD while contract handles backend settlement across multiple DEXs",
-        "Automatically swaps and distributes tokens to user wallets, eliminating multiple transaction signatures",
-        "Makes crypto investing accessible without crypto jargon or complicated steps"
+        "Agent-driven investing flow where LangGraph agents plan and execute on-chain strategies",
+        "Single-payment onboarding using PayPal's PYUSD stablecoin to fund positions",
+        "Solidity smart contracts handling deposits and strategy execution on Ethereum",
+        "Natural-language interface that abstracts away wallet and DeFi complexity for non-crypto users"
       ],
       "awards": [
-        "Winner of ETHGlobal New Delhi 2025 (PayPal Track)"
+        "Winner — PayPal & Fluence Track, ETHGlobal New Delhi 2025"
       ],
-      "category": "Blockchain/DeFi"
+      "category": "Blockchain / DeFi"
     },
     {
-      "name": "BorrowBridge",
-      "description": "Decentralized token-based crowdfunding platform on Ethereum using smart contracts",
-      "technologies": ["React", "Solidity", "web3.js", "Thirdweb", "Ethereum", "Tailwind CSS"],
-      "github": "GITHUB LINK",
-      "features": [
-        "Transparent fundraising through smart contracts",
-        "Integrated Thirdweb for smart contract deployment",
-        "Simple React interface for campaigns and investments"
+      "name": "SMS Protocol",
+      "description": "SMS-based cryptocurrency transactions for feature phones — send and receive crypto over a plain text message, with private keys secured by Multi-Party Computation for financial inclusion in low-connectivity regions.",
+      "technologies": [
+        "React",
+        "Node.js",
+        "Express.js",
+        "Twilio",
+        "Web3.js",
+        "ethers.js",
+        "MPC",
+        "Ethereum",
+        "Avalanche"
       ],
-      "category": "Blockchain/Crowdfunding"
+      "github": "https://github.com/MaheepTulsian/SMS-Protocol",
+      "features": [
+        "Send/receive crypto by texting a formatted SMS (e.g. 'SEND 0.5 ETH TO 0x...') — no smartphone or internet required",
+        "Twilio SMS gateway parses inbound messages, validates the request, and extracts amount and recipient",
+        "Private keys split via Multi-Party Computation (MPC) so no single party ever holds the full key",
+        "Transactions signed and submitted on-chain to Ethereum and Avalanche via Web3.js / ethers.js",
+        "Aimed at financial inclusion for feature-phone users in rural, low-connectivity areas"
+      ],
+      "awards": [
+        "Winner — Coinbase Track, Unfold '24"
+      ],
+      "category": "Blockchain / FinTech"
     },
     {
       "name": "Redeem",
-      "description": "High-performance coupon management REST API in Go with MongoDB",
-      "technologies": ["Go", "MongoDB", "Docker", "OpenAPI 3.0", "LRU Cache"],
-      "github": "GITHUB LINK",
+      "description": "A production-ready coupon management and validation REST API in Go, built for e-commerce platforms that need flexible, high-performance discount logic.",
+      "technologies": [
+        "Go",
+        "MongoDB",
+        "Docker",
+        "OpenAPI 3.0",
+        "LRU Cache"
+      ],
+      "github": "https://github.com/MaheepTulsian/Redeem",
       "features": [
-        "LRU caching with TTL to achieve sub-50ms response times",
-        "Support for 1000+ requests/second",
-        "Smart validation logic and context-aware cart analysis",
-        "Comprehensive coupon types (time-based, category-specific, stackable)",
-        "Atomic operations for concurrency safety",
-        "Mutex-based thread safety and automated cache cleanup",
-        "Complete OpenAPI 3.0 documentation with Swagger UI integration"
+        "Multiple coupon types — one-time, multi-use, and time-based — with percentage and fixed-amount discounts",
+        "Context-aware validation that analyzes the cart and supports product- and category-level targeting",
+        "In-memory LRU cache with TTL for sub-millisecond coupon lookups",
+        "Concurrency-safe by design using mutex locking and atomic operations",
+        "Full OpenAPI 3.0 spec with a browsable Swagger UI",
+        "Containerized with Docker Compose for a one-command local stack (API + MongoDB)"
       ],
       "performance": {
-        "response_time": "sub-50ms",
+        "response_time": "sub-millisecond (cached)",
         "throughput": "1000+ requests/second"
       },
-      "category": "Backend/E-commerce"
+      "category": "Backend / Systems"
+    },
+    {
+      "name": "Durable Execution Engine",
+      "description": "A fault-tolerant workflow engine for Go that makes ordinary functions automatically resumable and crash-resistant — inspired by Temporal, Cadence, DBOS and Azure Durable Functions.",
+      "technologies": [
+        "Go",
+        "SQLite",
+        "Concurrency"
+      ],
+      "github": "https://github.com/MaheepTulsian/Durable-Execution-Engine",
+      "features": [
+        "Turns normal Go code into durable workflows — each step executes once and is memoized so a crash resumes exactly where it left off",
+        "Sequence tracking that correctly handles loops and repeated steps across replays",
+        "Thread-safe parallel step execution within a workflow",
+        "SQLite-backed persistence of workflow state with a small, embeddable API (NewEngine / Execute / Step)"
+      ],
+      "category": "Backend / Systems"
+    },
+    {
+      "name": "Fan-Out Engine",
+      "description": "A high-throughput distributed data-processing engine in Java that streams very large files (100GB+) and fans records out to multiple sink systems in parallel — each with its own transform, rate limit, and fault handling.",
+      "technologies": [
+        "Java",
+        "Maven",
+        "Multithreading"
+      ],
+      "github": "https://github.com/MaheepTulsian/Fan-Out-Engine",
+      "features": [
+        "Streams files line-by-line via BufferedReader — processes 100GB+ inputs on a 512MB heap, never loading the whole file",
+        "Pluggable transformers per sink: JSON, Protobuf, XML, and Avro",
+        "Per-sink token-bucket rate limiting that allows bursts while holding an average rate",
+        "Fault tolerance with up to 3 retries, exponential backoff, and a dead-letter queue for failed records",
+        "Backpressure via a bounded ArrayBlockingQueue so a slow sink can't exhaust memory",
+        "Graceful degradation — one sink failing doesn't stall the others"
+      ],
+      "category": "Backend / Systems"
+    },
+    {
+      "name": "reliq",
+      "description": "A multi-agent AI system that autonomously detects, diagnoses, and remediates CI/CD pipeline failures on AWS through reasoning-driven automation.",
+      "technologies": [
+        "Python",
+        "Multi-Agent AI",
+        "LangChain",
+        "AWS"
+      ],
+      "github": "https://github.com/MaheepTulsian/reliq",
+      "features": [
+        "Pipeline-monitoring agent (deterministic, rule-based) for fast, reliable failure detection from status, exit codes and logs",
+        "Log-analysis agent that extracts structured signals from noisy pipeline logs",
+        "Root-cause agent that applies causal reasoning to determine why a failure occurred",
+        "Pipeline of specialized agents on a shared base-agent abstraction, with synthetic data generation for realistic testing",
+        "Designed to extend into automated fix generation and remediation"
+      ],
+      "category": "AI / DevOps"
+    },
+    {
+      "name": "Ashwini",
+      "description": "A pharmaceutical supply-chain platform with role-based dashboards for manufacturers, wholesalers, and retailers — covering ordering, returns, revenue analytics, and distribution mapping end to end.",
+      "technologies": [
+        "React",
+        "Node.js",
+        "Express.js",
+        "Prisma",
+        "JWT",
+        "Material UI",
+        "Nivo Charts",
+        "Ola Maps"
+      ],
+      "github": "https://github.com/MaheepTulsian/Ashwini",
+      "features": [
+        "Three distinct role-based dashboards — Manufacturer, Wholesaler, and Retailer — each with its own workflows",
+        "Order lifecycle across the chain: placement, receipt, returns, and product discontinuation",
+        "JWT + bcrypt authentication with protected routes and per-role access control",
+        "Express + Prisma backend with dedicated controllers and routes per role",
+        "Analytics UI with Nivo bar/line/pie charts, MUI data grids, and Spline 3D + Framer Motion touches",
+        "Revenue tracking and geo distribution mapping"
+      ],
+      "category": "Full-Stack / Enterprise"
+    },
+    {
+      "name": "BorrowBridge 2.0",
+      "description": "A transparent, blockchain-powered crowdfunding platform connecting tier-3 city fundraisers with urban investors — no asset staking required, just ideas meeting support on-chain.",
+      "technologies": [
+        "React",
+        "Tailwind CSS",
+        "Solidity",
+        "Thirdweb",
+        "Ethereum"
+      ],
+      "github": "https://github.com/MaheepTulsian/BorrowBridge2.0",
+      "features": [
+        "Solidity smart contracts (createCampaign, donateToCampaign, getDonators, getCampaigns) storing all campaign and donation data on-chain",
+        "Contracts deployed and called through the Thirdweb SDK",
+        "React + Tailwind frontend for campaign creation, donations, and real-time updates",
+        "Immutable, transparent record of contributors and funds raised"
+      ],
+      "category": "Blockchain / Crowdfunding"
+    },
+    {
+      "name": "Mirai",
+      "description": "A Flutter + Firebase career and learning hub for CS/IT students — a single place for jobs, internships, courses, roadmaps, and GSoC organizations.",
+      "technologies": [
+        "Flutter",
+        "Dart",
+        "Firebase",
+        "FCM"
+      ],
+      "github": "https://github.com/MaheepTulsian/Mirai",
+      "features": [
+        "Real-time job and internship listings from Firestore with advanced filtering by location, company, and tags",
+        "Google Sign-In via Firebase Auth with a location-based onboarding and profile flow",
+        "Curated learning resources — course catalog, career roadmaps, and GSoC organization listings",
+        "FCM push notifications handled across foreground, background, and terminated states",
+        "Deep linking into 12+ screens with parameter passing and graceful fallback routing",
+        "Firebase Analytics event tracking plus image caching for performance"
+      ],
+      "category": "Mobile / Career Tech"
+    },
+    {
+      "name": "cUrlBaby",
+      "description": "A lightweight Java CLI utility for API testing — a terminal-native take on Postman, built with modular object-oriented patterns.",
+      "technologies": [
+        "Java",
+        "CLI",
+        "Shell",
+        "OOP",
+        "HTTP"
+      ],
+      "github": "",
+      "features": [
+        "Full HTTP method support — GET, POST, PUT, DELETE — with per-request timeout control and error handling",
+        "Custom JSON parser that pretty-prints responses for clear console output",
+        "Modular, object-oriented design replicating core Postman features on the command line",
+        "Streamlined request management and response visualization through an intuitive terminal workflow"
+      ],
+      "category": "Developer Tools / CLI"
     }
   ],
   "skills": {
@@ -336,13 +476,35 @@
     "Open Source"
   ],
   "project_categories": {
-    "ai_ml": ["Up.ly", "VibeUI", "Burp"],
-    "full_stack": ["Up.ly", "Mirai", "EveryDukan", "Ashwini"],
-    "blockchain": ["Burp", "BorrowBridge"],
-    "developer_tools": ["cUrlBaby", "VibeUI"],
-    "mobile": ["Mirai", "EveryDukan"],
-    "backend": ["Redeem"],
-    "enterprise": ["Ashwini"]
+    "ai_ml": [
+      "Up.ly",
+      "VibeUI",
+      "Burp"
+    ],
+    "full_stack": [
+      "Up.ly",
+      "Mirai",
+      "EveryDukan",
+      "Ashwini"
+    ],
+    "blockchain": [
+      "Burp",
+      "BorrowBridge"
+    ],
+    "developer_tools": [
+      "cUrlBaby",
+      "VibeUI"
+    ],
+    "mobile": [
+      "Mirai",
+      "EveryDukan"
+    ],
+    "backend": [
+      "Redeem"
+    ],
+    "enterprise": [
+      "Ashwini"
+    ]
   },
   "technical_highlights": [
     "Winner of 2 major hackathons (ETHGlobal, Unfold'24)",

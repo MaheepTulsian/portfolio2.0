@@ -1,187 +1,133 @@
 "use client";
 
-import { motion, useAnimationFrame, useMotionValue, useSpring } from "framer-motion";
-import { useRef, useState, useLayoutEffect } from "react";
-import Link from "next/link";
-import { FocusBadge } from "@/components/card/focus-bage";
-import { techStack } from "@/lib/tech-stack";
+import Image from "next/image";
 import * as SimpleIcons from "simple-icons";
+import { InfiniteSlider } from "@/components/ui/infinite-slider";
+import { techStack, type TechItem } from "@/lib/tech-stack";
 
-type TechItem = {
-  name: string;
-  icon: React.ReactNode;
-  link?: string;
-};
+// Local SVGs that are a single dark/black mark — flip them to white in dark
+// mode so they stay visible. Colored local logos (Java, Azure) are left alone.
+const MONO_DARK_LOCAL = new Set([
+  "/icons/openai.svg",
+  "/icons/groq.svg",
+  "/icons/aws.svg",
+]);
 
-// Convert tech stack to include Simple Icons or local SVGs
-const TECH_STACK: TechItem[] = techStack.map((tech) => {
-  // Prefer local icon if available
+function siKey(slug: string): string {
+  return `si${slug.charAt(0).toUpperCase()}${slug.slice(1)}`;
+}
+
+function simpleIcon(tech: TechItem) {
+  return SimpleIcons[siKey(tech.slug) as keyof typeof SimpleIcons] as
+    | { path: string; hex: string }
+    | undefined;
+}
+
+function relativeLuminance(hex: string): number {
+  const h = hex.replace("#", "");
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+}
+
+function darken(hex: string, factor: number): string {
+  const h = hex.replace("#", "");
+  const rgb = [0, 2, 4].map((i) =>
+    Math.round(parseInt(h.slice(i, i + 2), 16) * factor)
+  );
+  return `#${rgb.map((v) => v.toString(16).padStart(2, "0")).join("")}`;
+}
+
+/** Brand color resolved for each theme so every logo stays legible. */
+function themeColors(tech: TechItem): { light: string; dark: string } {
+  const brand = tech.color ?? (simpleIcon(tech) ? `#${simpleIcon(tech)!.hex}` : "#888888");
+  const lum = relativeLuminance(brand);
+  return {
+    light: lum > 0.78 ? darken(brand, 0.7) : brand,
+    dark: lum < 0.28 ? "#e9e9ec" : brand,
+  };
+}
+
+function TechGlyph({ tech }: { tech: TechItem }) {
   if (tech.localIcon) {
-    return {
-      name: tech.name,
-      link: tech.link,
-      icon: (
-        <img
-          src={tech.localIcon}
-          alt={tech.name}
-          className="h-4 w-4 object-contain"
-        />
-      ),
-    };
+    const flip = MONO_DARK_LOCAL.has(tech.localIcon);
+    return (
+      <Image
+        src={tech.localIcon}
+        alt=""
+        width={20}
+        height={20}
+        className={`h-5 w-5 object-contain ${flip ? "dark:brightness-0 dark:invert" : ""}`}
+      />
+    );
   }
 
-  // Fall back to Simple Icons
-  const icon = SimpleIcons[`si${tech.slug.charAt(0).toUpperCase() + tech.slug.slice(1)}` as keyof typeof SimpleIcons];
-
-  return {
-    name: tech.name,
-    link: tech.link,
-    icon: icon ? (
-      <svg
-        role="img"
-        viewBox="0 0 24 24"
-        className="h-4 w-4"
-        fill="currentColor"
-        style={{ color: tech.color || "currentColor" }}
-      >
-        <path d={icon.path} />
-      </svg>
-    ) : null,
-  };
-});
-
-export function TechStackCarousel() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const smoothX = useSpring(x, { stiffness: 100, damping: 30, mass: 0.5 });
-
-  const [loopWidth, setLoopWidth] = useState(0);
-  const [speed, setSpeed] = useState(90); // seconds per loop
-  const [isHovered, setIsHovered] = useState(false);
-
-  // Measure loop width safely
-  useLayoutEffect(() => {
-    if (!containerRef.current) return;
-
-    const measure = () => {
-      setLoopWidth(containerRef.current!.scrollWidth / 2);
-    };
-
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
-
-  // Continuous animation loop
-  useAnimationFrame((_, delta) => {
-    if (!loopWidth) return;
-
-    const velocity = loopWidth / speed;
-    const moveBy = (delta / 1000) * velocity;
-
-    const currentX = x.get();
-    let nextX = currentX - moveBy;
-
-    // Seamlessly loop back when reaching the end of first set
-    if (nextX <= -loopWidth) {
-      // Calculate the remainder to maintain smooth position
-      const remainder = (nextX % loopWidth);
-      nextX = remainder;
-      // Jump both x and smoothX to prevent spring animation
-      x.jump(nextX);
-      smoothX.jump(nextX);
-    } else {
-      x.set(nextX);
-    }
-  });
+  const icon = simpleIcon(tech);
+  if (!icon) {
+    return (
+      <span className="grid h-5 w-5 place-items-center text-xs font-semibold text-foreground">
+        {tech.name.charAt(0)}
+      </span>
+    );
+  }
 
   return (
-    <div className="relative w-full overflow-hidden py-4">
+    <svg
+      role="img"
+      viewBox="0 0 24 24"
+      aria-hidden
+      fill="currentColor"
+      className="h-5 w-5 [color:var(--icl)] dark:[color:var(--icd)]"
+    >
+      <path d={icon.path} />
+    </svg>
+  );
+}
 
-      {/* Main carousel container */}
-      <motion.div
-        ref={containerRef}
-        style={{ x: smoothX }}
-        onHoverStart={() => {
-          setSpeed(270);
-          setIsHovered(true);
-        }}
-        onHoverEnd={() => {
-          setSpeed(90);
-          setIsHovered(false);
-        }}
-        className="
-          flex w-max gap-3 sm:gap-4 md:gap-5
-          cursor-grab active:cursor-grabbing
-          select-none
-        "
-      >
-        {[...TECH_STACK, ...TECH_STACK].map((tech, i) => (
-          <motion.div
-            key={`${tech.name}-${i}`}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              delay: i * 0.02,
-              duration: 0.4,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            whileHover={{
-              scale: 1.05,
-              y: -2,
-              transition: { duration: 0.2 },
-            }}
-            className="relative"
-          >
-            {/* Hover glow effect */}
-            <motion.div
-              className="
-                absolute inset-0 -z-10
-                rounded-full
-                bg-primary/20
-                blur-lg
-                dark:bg-primary/30
-              "
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileHover={{ opacity: 1, scale: 1.2 }}
-              transition={{ duration: 0.3 }}
-            />
+function TechChip({ tech }: { tech: TechItem }) {
+  const { light, dark } = themeColors(tech);
+  return (
+    <a
+      href={tech.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group/tech relative flex shrink-0 items-center gap-2.5 rounded-full px-2.5 py-1"
+      style={{ "--icl": light, "--icd": dark } as React.CSSProperties}
+    >
+      <span className="relative flex h-7 w-7 items-center justify-center">
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-1 rounded-full bg-[color:var(--icl)] opacity-0 blur-md transition-opacity duration-300 group-hover/tech:opacity-35 dark:bg-[color:var(--icd)]"
+        />
+        <span className="relative transition-transform duration-300 group-hover/tech:scale-110">
+          <TechGlyph tech={tech} />
+        </span>
+      </span>
+      <span className="whitespace-nowrap text-sm text-secondary transition-colors duration-300 group-hover/tech:text-foreground">
+        {tech.name}
+      </span>
+    </a>
+  );
+}
 
-            {tech.link ? (
-              <Link
-                href={tech.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cursor-pointer"
-              >
-                <FocusBadge
-                  text={tech.name}
-                  icon={{ type: "node", value: tech.icon }}
-                />
-              </Link>
-            ) : (
-              <FocusBadge
-                text={tech.name}
-                icon={{ type: "node", value: tech.icon }}
-              />
-            )}
-          </motion.div>
+export function TechStackCarousel() {
+  const mid = Math.ceil(techStack.length / 2);
+  const rowOne = techStack.slice(0, mid);
+  const rowTwo = techStack.slice(mid);
+
+  return (
+    <div className="flex flex-col gap-2 py-2">
+      <InfiniteSlider gap={8} speed={34} speedOnHover={9}>
+        {rowOne.map((tech) => (
+          <TechChip key={tech.name} tech={tech} />
         ))}
-      </motion.div>
-
-      {/* Animated border accent */}
-      <motion.div
-        className="
-          absolute bottom-0 left-0 right-0
-          h-px
-          bg-gradient-to-r
-          from-transparent via-primary/50 to-transparent
-          dark:via-primary/70
-        "
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: isHovered ? 1 : 0 }}
-        transition={{ duration: 0.6, ease: "easeInOut" }}
-      />
+      </InfiniteSlider>
+      <InfiniteSlider gap={8} speed={34} speedOnHover={9} reverse>
+        {rowTwo.map((tech) => (
+          <TechChip key={tech.name} tech={tech} />
+        ))}
+      </InfiniteSlider>
     </div>
   );
 }

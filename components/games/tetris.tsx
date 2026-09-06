@@ -439,11 +439,13 @@ export function TetrisGame({ onGameOver, onScoreChange, gameOver: externalGameOv
       paused.current = false;
       next.current = randomPiece();
 
+      /* eslint-disable react-hooks/set-state-in-effect */
       setScore(0);
       setLines(0);
       setLevel(1);
       setIsGameOver(false);
       setIsPaused(false);
+      /* eslint-enable react-hooks/set-state-in-effect */
 
       spawn();
       lastDrop.current = performance.now();

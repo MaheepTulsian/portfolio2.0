@@ -63,8 +63,13 @@ export const techStack: TechItem[] = [
   { name: "Cloudflare", slug: "cloudflare", color: "#F38020", link: "https://www.cloudflare.com/" },
 
   // Tools
+  { name: "GitHub", slug: "github", color: "#181717", link: "https://github.com/" },
+  { name: "VS Code", slug: "visualstudiocode", color: "#007ACC", link: "https://code.visualstudio.com/" },
+  { name: "Figma", slug: "figma", color: "#F24E1E", link: "https://www.figma.com/" },
   { name: "Postman", slug: "postman", color: "#FF6C37", link: "https://www.postman.com/" },
+  { name: "Slack", slug: "slack", color: "#4A154B", link: "https://slack.com/" },
+  { name: "Linear", slug: "linear", color: "#5E6AD2", link: "https://linear.app/" },
+  { name: "Notion", slug: "notion", color: "#000000", link: "https://www.notion.so/" },
   { name: "Prisma", slug: "prisma", color: "#2D3748", link: "https://www.prisma.io/" },
   { name: "Swagger", slug: "swagger", color: "#85EA2D", link: "https://swagger.io/" },
-  { name: "Figma", slug: "figma", color: "#F24E1E", link: "https://www.figma.com/" },
 ];
