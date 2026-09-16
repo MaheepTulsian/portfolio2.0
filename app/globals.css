@@ -84,8 +84,9 @@
 }
 
 .dark {
-  /* Deep, quiet charcoal; a soft top glow lifts it (see body::before). */
-  --background: oklch(0.155 0.004 265);
+  /* Lifted charcoal (#121214) — brighter than pure black while staying dark;
+     a soft top glow lifts it further (see body::before). */
+  --background: #121214;
   --foreground: oklch(0.97 0.004 265);
 
   --card: oklch(0.213 0.005 265);

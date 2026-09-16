@@ -2,7 +2,6 @@
 
 import { ReactNode, useEffect, useState } from "react";
 import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import { ProgressiveBlur } from "@/components/layout/progressive-blur";
 import { HeaderProvider, useHeader } from "@/components/layout/header-provider";
 import Loading from "@/components/loader/greet-loader";
@@ -17,7 +16,7 @@ function LayoutContent({
   name: string;
   children: ReactNode;
 }) {
-  const { showHeader, showFooter } = useHeader();
+  const { showHeader } = useHeader();
   const [showLoader, setShowLoader] = useState(true);
   const [hasLoaded, setHasLoaded] = useState(false);
 
@@ -93,7 +92,6 @@ function LayoutContent({
         <div className="flex-1 flex flex-col items-center">
           {showHeader && <Header name={name} />}
           {children}
-          {showFooter && <Footer />}
         </div>
 
         {/* Progressive blur at bottom */}

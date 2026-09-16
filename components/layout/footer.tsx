@@ -46,8 +46,8 @@ export function Footer() {
   const mapPos = `${(xF - tileX) * 100}% ${(yF - tileY) * 100}%`;
 
   return (
-    <footer className="w-full pb-10 pt-8 md:mt-auto">
-      <div className="mx-auto w-full max-w-2xl px-6">
+    <footer className="w-full">
+      <div className="mx-auto w-full max-w-[720px] px-8 pb-16 pt-12">
 
         {/* Talk + socials, with the location map alongside */}
         <div className="mb-6 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
