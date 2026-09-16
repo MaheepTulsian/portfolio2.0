@@ -5,8 +5,8 @@ import { useHeader } from "@/components/layout/header-provider";
 
 /**
  * The landing page has its own header row, so hide the global nav while this
- * page is mounted (and restore it on navigation). The global footer — with the
- * location map — stays visible.
+ * page is mounted (and restore it on navigation). The footer is rendered by the
+ * landing page itself (inside its grid), not globally.
  */
 export function ChromeHider() {
   const { setShowHeader } = useHeader();

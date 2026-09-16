@@ -67,7 +67,7 @@ export default async function ProjectDetails({ params }: ProjectDetailsProps) {
   const hasLink = project.link && project.link !== "PROJECT LINK";
 
   return (
-    <div className="min-h-screen w-full bg-[lab(3.04863_0_0)] text-[lab(94.2_0_0)]">
+    <div className="min-h-screen w-full bg-[#121214] text-[lab(94.2_0_0)]">
       <HideNav />
       <main className="mx-auto w-full max-w-[700px] px-8 pb-24 pt-14">
         <div className="mb-10">

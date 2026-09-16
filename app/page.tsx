@@ -9,6 +9,8 @@ import { Performance } from "@/components/home/performance";
 import { ExperienceRail } from "@/components/home/experience-rail";
 import { SkillsGrid } from "@/components/home/skills-grid";
 import { ChromeHider } from "@/components/home/chrome-hider";
+import { Footer } from "@/components/layout/footer";
+import { HatchDivider } from "@/components/layout/hatch-divider";
 
 function SectionHead({
   children,
@@ -103,11 +105,19 @@ export default async function Home() {
   const contributions = await getGitHubContributions(siteConfig.githubUsername);
 
   return (
-    <div className="min-h-screen w-full bg-[lab(3.04863_0_0)] text-[lab(94.2_0_0)]">
+    <div className="relative min-h-screen w-full bg-[#121214] text-[lab(94.2_0_0)]">
       <ChromeHider />
-      <main className="mx-auto w-full max-w-[700px] px-8 pt-14">
+
+      {/* Full-height vertical rails framing the content column (no fill). */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+        <div className="mx-auto h-full max-w-[720px] border-x border-[lab(100_0_0/0.15)]" />
+      </div>
+
+      <main className="relative z-10 w-full">
+        <HatchDivider />
         {/* Header */}
         <section className="animate-fade-in-blur">
+          <div className="mx-auto max-w-[720px] px-8 pb-10 pt-12">
           <div className="flex items-start justify-between gap-4">
             <div>
               <h1 className="font-heading text-lg font-semibold tracking-tight text-[lab(94.2_0_0)]">
@@ -151,16 +161,7 @@ export default async function Home() {
           </div>
 
           {/* CTA */}
-          <div className="relative mt-6">
-            <div className="pointer-events-none absolute right-full top-1/2 mr-6 hidden -translate-y-1/2 items-center gap-1 whitespace-nowrap lg:flex">
-              <span className="font-heading-italic text-sm text-[lab(66.128_0_0)]">
-                open to work
-              </span>
-              <svg viewBox="0 0 60 24" className="h-5 w-14 text-[lab(66.128_0_0)]" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round">
-                <path d="M2 4c14 14 30 16 54 14" />
-                <path d="M50 12l6 6-9 1" />
-              </svg>
-            </div>
+          <div className="mt-6">
             <div className="flex flex-wrap items-center gap-2">
               <a
                 href={siteConfig.calUrl}
@@ -180,34 +181,46 @@ export default async function Home() {
               </a>
             </div>
           </div>
+          </div>
         </section>
 
+        <HatchDivider />
         {/* Performance */}
-        <section className="mt-16">
-          <SectionHead>Performance</SectionHead>
-          <Performance data={contributions} />
+        <section>
+          <div className="mx-auto max-w-[720px] px-8 py-10">
+            <SectionHead>Performance</SectionHead>
+            <Performance data={contributions} />
+          </div>
         </section>
 
+        <HatchDivider />
         {/* Experience */}
-        <section className="mt-16">
-          <SectionHead>Experience</SectionHead>
-          <ExperienceRail />
+        <section>
+          <div className="mx-auto max-w-[720px] px-8 py-10">
+            <SectionHead>Experience</SectionHead>
+            <ExperienceRail />
+          </div>
         </section>
 
+        <HatchDivider />
         {/* Skills */}
-        <section className="mt-16">
-          <SkillsGrid />
+        <section>
+          <div className="mx-auto max-w-[720px] px-8 py-10">
+            <SkillsGrid />
+          </div>
         </section>
 
+        <HatchDivider />
         {/* Projects */}
-        <section className="mt-16 pb-24">
+        <section>
+          <div className="mx-auto max-w-[720px] px-8 py-10">
           <SectionHead action={<SeeMore href="/projects" label="See all" />}>Projects</SectionHead>
-          <div className="-mx-3">
+          <div className="-mx-3 divide-y divide-[lab(100_0_0/0.1)]">
             {FEATURED.map((project) => (
               <Link
                 key={project.name}
                 href={`/projects/${generateSlug(project.name)}`}
-                className="group flex items-center gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-[lab(100_0_0/0.035)]"
+                className="group flex items-center gap-3 px-3 py-3.5 transition-colors hover:bg-[lab(100_0_0/0.035)]"
               >
                 <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
                   <span className="text-sm font-medium text-[lab(94.2_0_0)]">
@@ -221,7 +234,13 @@ export default async function Home() {
               </Link>
             ))}
           </div>
+          </div>
         </section>
+
+        <HatchDivider />
+        {/* Footer — part of the landing page (not global) */}
+        <Footer />
+        <HatchDivider />
       </main>
     </div>
   );

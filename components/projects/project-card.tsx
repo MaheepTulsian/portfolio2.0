@@ -12,7 +12,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <Link
       href={`/projects/${slug}`}
-      className="list-row group grid grid-cols-1 gap-1.5 border-b border-[lab(100_0_0/0.08)] py-6 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] sm:gap-10"
+      className="list-row group grid grid-cols-1 gap-1.5 border-b border-[lab(100_0_0/0.1)] py-6 first:pt-2 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] sm:gap-10"
     >
       <div className="relative flex items-baseline gap-2">
         <h3 className="text-base font-medium tracking-tight text-[lab(94.2_0_0)]">

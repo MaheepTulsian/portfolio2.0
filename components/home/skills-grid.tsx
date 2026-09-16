@@ -107,13 +107,13 @@ export function SkillsGrid() {
         )}
       </div>
 
-      <div className="space-y-5">
+      <div className="divide-y divide-[lab(100_0_0/0.1)]">
         {ROWS.map((row) => {
           const items = expanded ? row.items : row.items.slice(0, VISIBLE);
           return (
             <div
               key={row.label}
-              className="grid grid-cols-1 gap-2 sm:grid-cols-[128px_1fr] sm:items-start"
+              className="grid grid-cols-1 gap-2 py-4 first:pt-0 last:pb-0 sm:grid-cols-[128px_1fr] sm:items-start"
             >
               <span className="text-sm text-[lab(66.128_0_0)]">{row.label}</span>
               <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
