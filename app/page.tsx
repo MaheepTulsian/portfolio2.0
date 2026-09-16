@@ -86,9 +86,11 @@ export default async function Home() {
     <div className="relative min-h-screen w-full bg-[#121214] text-[lab(94.2_0_0)]">
       <ChromeHider />
 
-      {/* Full-height vertical rails framing the content column (no fill). */}
+      {/* Vertical rails — inset from the screen edges on mobile, a centred 720
+          column on desktop. Content wrappers use the same mx-4/md:mx-auto so
+          they stay perfectly aligned with the rails. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
-        <div className="mx-auto h-full max-w-[720px] border-x border-[lab(100_0_0/0.15)]" />
+        <div className="mx-4 h-full max-w-[720px] border-x border-[lab(100_0_0/0.15)] md:mx-auto" />
       </div>
 
       <main className="relative z-10 w-full">
@@ -101,7 +103,7 @@ export default async function Home() {
             avatarSrc="/pfp.png"
             contact={personal.contact}
           />
-          <div className="mx-auto max-w-[720px] px-8 pb-10 pt-8">
+          <div className="mx-4 max-w-[720px] md:mx-auto px-5 sm:px-8 pb-10 pt-8">
           {/* Bio */}
           <div className="space-y-4 text-base leading-relaxed text-[oklch(0.75_0_0)]">
             <p>
@@ -143,7 +145,7 @@ export default async function Home() {
         <HatchDivider />
         {/* Performance */}
         <section>
-          <div className="mx-auto max-w-[720px] px-8 py-10">
+          <div className="mx-4 max-w-[720px] md:mx-auto px-5 sm:px-8 py-10">
             <SectionHead>Performance</SectionHead>
             <Performance data={contributions} />
           </div>
@@ -152,7 +154,7 @@ export default async function Home() {
         <HatchDivider />
         {/* Experience */}
         <section>
-          <div className="mx-auto max-w-[720px] px-8 py-10">
+          <div className="mx-4 max-w-[720px] md:mx-auto px-5 sm:px-8 py-10">
             <SectionHead>Experience</SectionHead>
             <ExperienceRail />
           </div>
@@ -161,7 +163,7 @@ export default async function Home() {
         <HatchDivider />
         {/* Skills */}
         <section>
-          <div className="mx-auto max-w-[720px] px-8 py-10">
+          <div className="mx-4 max-w-[720px] md:mx-auto px-5 sm:px-8 py-10">
             <SkillsGrid />
           </div>
         </section>
@@ -169,7 +171,7 @@ export default async function Home() {
         <HatchDivider />
         {/* Projects */}
         <section>
-          <div className="mx-auto max-w-[720px] px-8 py-10">
+          <div className="mx-4 max-w-[720px] md:mx-auto px-5 sm:px-8 py-10">
           <SectionHead action={<SeeMore href="/projects" label="See all" />}>Projects</SectionHead>
           <div className="-mx-3 divide-y divide-[lab(100_0_0/0.1)]">
             {FEATURED.map((project) => (

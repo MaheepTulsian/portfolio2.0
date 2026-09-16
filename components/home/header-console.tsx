@@ -90,11 +90,11 @@ export function HeaderConsole({
   }, []);
 
   return (
-    <div className="mx-auto max-w-[720px]">
-      <div className="grid grid-cols-[160px_1fr] divide-x divide-[lab(100_0_0/0.15)] border-b border-[lab(100_0_0/0.15)]">
-        {/* Avatar — circular photo inside a square cell */}
-        <div className="flex aspect-square w-full self-start items-center justify-center">
-          <div className="h-full w-full overflow-hidden rounded-full">
+    <div className="mx-4 max-w-[720px] md:mx-auto">
+      <div className="grid grid-cols-[112px_minmax(0,1fr)] divide-x divide-[lab(100_0_0/0.15)] border-b border-[lab(100_0_0/0.15)] sm:grid-cols-[160px_1fr]">
+        {/* Avatar — square, circular photo, vertically centred in the cell */}
+        <div className="flex w-full items-center justify-center">
+          <div className="aspect-square w-full overflow-hidden rounded-full">
             <Image
               src={avatarSrc}
               alt={name}
@@ -109,7 +109,7 @@ export function HeaderConsole({
         {/* Details */}
         <div className="flex flex-col divide-y divide-[lab(100_0_0/0.15)]">
           {/* Meta row — visitors + live clock */}
-          <div className="flex items-center justify-between gap-3 px-4 py-2.5 font-mono text-xs">
+          <div className="flex items-center justify-between gap-2 px-3 py-2.5 font-mono text-[11px] sm:px-4 sm:text-xs">
             <span className="text-[lab(55_0_0)]">
               {/* <span className="uppercase tracking-[0.18em] text-[lab(48_0_0)]">
                 // Visitors
@@ -123,15 +123,15 @@ export function HeaderConsole({
           </div>
 
           {/* Name */}
-          <div className="flex flex-1 items-center px-4 py-3">
-            <h1 className="font-heading text-2xl font-semibold tracking-tight text-[lab(94.2_0_0)]">
+          <div className="flex flex-1 items-center px-3 py-3 sm:px-4">
+            <h1 className="font-heading text-xl font-semibold tracking-tight text-[lab(94.2_0_0)] sm:text-2xl">
               {name}
             </h1>
           </div>
 
           {/* Tagline + socials */}
-          <div className="flex items-center justify-between gap-3 px-4 py-2.5">
-            <p className="font-mono text-sm text-[lab(60_0_0)]">{tagline}</p>
+          <div className="flex flex-col items-start gap-2.5 px-3 py-2.5 min-[480px]:flex-row min-[480px]:items-center min-[480px]:justify-between min-[480px]:gap-3 sm:px-4">
+            <p className="font-mono text-xs text-[lab(60_0_0)] sm:text-sm">{tagline}</p>
             <div className="flex items-center gap-3.5">
               <Social href={`https://twitter.com/${contact.twitter}`} label="X" external>
                 <XIcon className="h-[13px] w-[13px]" />
