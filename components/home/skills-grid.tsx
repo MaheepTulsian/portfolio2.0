@@ -95,7 +95,7 @@ export function SkillsGrid() {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between gap-3">
-        <h2 className="text-base font-normal text-[lab(94.2_0_0)]">Skills</h2>
+        <h2 className="font-heading text-lg font-semibold tracking-tight text-[lab(94.2_0_0)]">Skills</h2>
         {hasMore && (
           <button
             onClick={() => setExpanded((v) => !v)}
