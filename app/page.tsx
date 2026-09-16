@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ReactNode } from "react";
-import { Mail, Github, Linkedin, FileText, ChevronsUpDown, ArrowUpRight } from "lucide-react";
+import { Mail, Github, Linkedin, FileText, ArrowRight, ArrowUpRight } from "lucide-react";
 import { getData } from "@/lib/data";
 import { getGitHubContributions } from "@/lib/github";
 import { siteConfig } from "@/lib/site";
@@ -19,20 +19,20 @@ function SectionHead({
 }) {
   return (
     <div className="mb-6 flex items-center justify-between gap-3">
-      <h2 className="text-base font-normal text-[lab(94.2_0_0)]">{children}</h2>
+      <h2 className="font-heading text-lg font-semibold tracking-tight text-[lab(94.2_0_0)]">{children}</h2>
       {action}
     </div>
   );
 }
 
-function SeeMore({ href }: { href: string }) {
+function SeeMore({ href, label = "See more" }: { href: string; label?: string }) {
   return (
     <Link
       href={href}
-      className="inline-flex items-center gap-1 text-sm text-[lab(66.128_0_0)] transition-colors hover:text-[lab(94.2_0_0)]"
+      className="group inline-flex shrink-0 items-center gap-1 text-sm text-[lab(66.128_0_0)] transition-colors hover:text-[lab(94.2_0_0)]"
     >
-      See more
-      <ChevronsUpDown className="h-3.5 w-3.5" />
+      {label}
+      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
     </Link>
   );
 }
@@ -110,10 +110,10 @@ export default async function Home() {
         <section className="animate-fade-in-blur">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h1 className="text-base font-medium text-[lab(94.2_0_0)]">
+              <h1 className="font-heading text-lg font-semibold tracking-tight text-[lab(94.2_0_0)]">
                 {personal.name}
               </h1>
-              <p className="mt-1 text-base text-[lab(66.128_0_0)]">
+              <p className="mt-0.5 text-sm text-[lab(60_0_0)]">
                 Full-stack &amp; AI/ML engineer
               </p>
             </div>
@@ -137,7 +137,7 @@ export default async function Home() {
           </div>
 
           {/* Bio */}
-          <div className="mt-8 space-y-4 text-base leading-6 text-[oklch(0.75_0_0)]">
+          <div className="mt-7 space-y-4 text-base leading-relaxed text-[oklch(0.75_0_0)]">
             <p>
               yo, I&apos;m Maheep, a full-stack &amp; AI/ML engineer based in
               India, obsessed with user experience, real-time systems, and good
@@ -183,25 +183,25 @@ export default async function Home() {
         </section>
 
         {/* Performance */}
-        <section className="mt-12">
+        <section className="mt-16">
           <SectionHead>Performance</SectionHead>
           <Performance data={contributions} />
         </section>
 
         {/* Experience */}
-        <section className="mt-12">
-          <SectionHead action={<SeeMore href="/resume/MaheepTulsian.pdf" />}>Experience</SectionHead>
+        <section className="mt-16">
+          <SectionHead>Experience</SectionHead>
           <ExperienceRail />
         </section>
 
         {/* Skills */}
-        <section className="mt-12">
+        <section className="mt-16">
           <SkillsGrid />
         </section>
 
         {/* Projects */}
-        <section className="mt-12 pb-24">
-          <SectionHead action={<SeeMore href="/projects" />}>Projects</SectionHead>
+        <section className="mt-16 pb-24">
+          <SectionHead action={<SeeMore href="/projects" label="See all" />}>Projects</SectionHead>
           <div className="-mx-3">
             {FEATURED.map((project) => (
               <Link
