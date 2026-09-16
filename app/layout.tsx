@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 import { getData } from "@/lib/data";
 import { siteConfig } from "@/lib/site";
@@ -86,6 +87,7 @@ export default function RootLayout({
         <LayoutWrapper name={data.personal.name}>
           {children}
         </LayoutWrapper>
+        <Analytics />
       </body>
     </html>
   );
