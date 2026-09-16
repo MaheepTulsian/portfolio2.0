@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ReactNode } from "react";
-import { Mail, Github, Linkedin, FileText, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { getData } from "@/lib/data";
 import { getGitHubContributions } from "@/lib/github";
 import { siteConfig } from "@/lib/site";
@@ -9,6 +9,7 @@ import { Performance } from "@/components/home/performance";
 import { ExperienceRail } from "@/components/home/experience-rail";
 import { SkillsGrid } from "@/components/home/skills-grid";
 import { ChromeHider } from "@/components/home/chrome-hider";
+import { HeaderConsole } from "@/components/home/header-console";
 import { Footer } from "@/components/layout/footer";
 import { HatchDivider } from "@/components/layout/hatch-divider";
 
@@ -59,29 +60,6 @@ function BioLink({
   );
 }
 
-function IconLink({
-  href,
-  label,
-  external,
-  children,
-}: {
-  href: string;
-  label: string;
-  external?: boolean;
-  children: ReactNode;
-}) {
-  return (
-    <Link
-      href={href}
-      aria-label={label}
-      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="text-[lab(66.128_0_0)] transition-colors hover:text-[lab(94.2_0_0)]"
-    >
-      {children}
-    </Link>
-  );
-}
-
 const XIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -108,46 +86,26 @@ export default async function Home() {
     <div className="relative min-h-screen w-full bg-[#121214] text-[lab(94.2_0_0)]">
       <ChromeHider />
 
-      {/* Full-height vertical rails framing the content column (no fill). */}
+      {/* Vertical rails — inset from the screen edges on mobile, a centred 720
+          column on desktop. Content wrappers use the same mx-4/md:mx-auto so
+          they stay perfectly aligned with the rails. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
-        <div className="mx-auto h-full max-w-[720px] border-x border-[lab(100_0_0/0.15)]" />
+        <div className="mx-4 h-full max-w-[720px] border-x border-[lab(100_0_0/0.15)] md:mx-auto" />
       </div>
 
       <main className="relative z-10 w-full">
         <HatchDivider />
         {/* Header */}
         <section className="animate-fade-in-blur">
-          <div className="mx-auto max-w-[720px] px-8 pb-10 pt-12">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h1 className="font-heading text-lg font-semibold tracking-tight text-[lab(94.2_0_0)]">
-                {personal.name}
-              </h1>
-              <p className="mt-0.5 text-sm text-[lab(60_0_0)]">
-                Full-stack &amp; AI/ML engineer
-              </p>
-            </div>
-            <div className="mt-1 flex items-center gap-4">
-              <IconLink href={`https://twitter.com/${personal.contact.twitter}`} label="X" external>
-                <XIcon className="h-[15px] w-[15px]" />
-              </IconLink>
-              <IconLink href={`https://github.com/${personal.contact.github}`} label="GitHub" external>
-                <Github className="h-4 w-4" />
-              </IconLink>
-              <IconLink href={`https://linkedin.com/in/${personal.contact.linkedin}`} label="LinkedIn" external>
-                <Linkedin className="h-4 w-4" />
-              </IconLink>
-              <IconLink href={`mailto:${personal.contact.email}`} label="Email">
-                <Mail className="h-4 w-4" />
-              </IconLink>
-              <IconLink href="/resume/MaheepTulsian.pdf" label="Resume" external>
-                <FileText className="h-4 w-4" />
-              </IconLink>
-            </div>
-          </div>
-
+          <HeaderConsole
+            name={personal.name}
+            tagline="Full-stack & AI/ML engineer"
+            avatarSrc="/pfp.png"
+            contact={personal.contact}
+          />
+          <div className="mx-4 max-w-[720px] md:mx-auto px-5 sm:px-8 pb-10 pt-8">
           {/* Bio */}
-          <div className="mt-7 space-y-4 text-base leading-relaxed text-[oklch(0.75_0_0)]">
+          <div className="space-y-4 text-base leading-relaxed text-[oklch(0.75_0_0)]">
             <p>
               yo, I&apos;m Maheep, a full-stack &amp; AI/ML engineer based in
               India, obsessed with user experience, real-time systems, and good
@@ -187,7 +145,7 @@ export default async function Home() {
         <HatchDivider />
         {/* Performance */}
         <section>
-          <div className="mx-auto max-w-[720px] px-8 py-10">
+          <div className="mx-4 max-w-[720px] md:mx-auto px-5 sm:px-8 py-10">
             <SectionHead>Performance</SectionHead>
             <Performance data={contributions} />
           </div>
@@ -196,7 +154,7 @@ export default async function Home() {
         <HatchDivider />
         {/* Experience */}
         <section>
-          <div className="mx-auto max-w-[720px] px-8 py-10">
+          <div className="mx-4 max-w-[720px] md:mx-auto px-5 sm:px-8 py-10">
             <SectionHead>Experience</SectionHead>
             <ExperienceRail />
           </div>
@@ -205,7 +163,7 @@ export default async function Home() {
         <HatchDivider />
         {/* Skills */}
         <section>
-          <div className="mx-auto max-w-[720px] px-8 py-10">
+          <div className="mx-4 max-w-[720px] md:mx-auto px-5 sm:px-8 py-10">
             <SkillsGrid />
           </div>
         </section>
@@ -213,7 +171,7 @@ export default async function Home() {
         <HatchDivider />
         {/* Projects */}
         <section>
-          <div className="mx-auto max-w-[720px] px-8 py-10">
+          <div className="mx-4 max-w-[720px] md:mx-auto px-5 sm:px-8 py-10">
           <SectionHead action={<SeeMore href="/projects" label="See all" />}>Projects</SectionHead>
           <div className="-mx-3 divide-y divide-[lab(100_0_0/0.1)]">
             {FEATURED.map((project) => (

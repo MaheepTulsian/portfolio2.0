@@ -47,7 +47,7 @@ export function Footer() {
 
   return (
     <footer className="w-full">
-      <div className="mx-auto w-full max-w-[720px] px-8 pb-16 pt-12">
+      <div className="mx-4 max-w-[720px] md:mx-auto px-5 sm:px-8 pb-16 pt-12">
 
         {/* Talk + socials, with the location map alongside */}
         <div className="mb-6 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
