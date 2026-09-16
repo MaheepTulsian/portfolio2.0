@@ -62,8 +62,10 @@ export const metadata: Metadata = {
   },
 };
 
-// Set the theme class before first paint to avoid a flash of the wrong theme.
-const themeInitScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})();`;
+// Dark is the default theme. <html> ships with `class="dark"` already applied
+// (see below), so the only job of this pre-paint script is to *remove* it when
+// the visitor has explicitly opted into light mode — avoiding a flash.
+const themeInitScript = `(function(){try{if(localStorage.getItem('theme')==='light'){document.documentElement.classList.remove('dark')}}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -73,7 +75,7 @@ export default function RootLayout({
   const data = getData();
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
